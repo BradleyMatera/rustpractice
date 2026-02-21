@@ -21,7 +21,9 @@ const WARN: u32 = 0xF2C65C;
 
 const ASSET_BRAND_MASCOT_56_SVG: &str = "brand/crabcord-mascot-56x56.svg";
 const ASSET_BRAND_CRAB_ART_SVG: &str = "brand/crabcord-crab-art-1024.svg";
-const ASSET_BRAND_CRAB_PNG: &str = "brand/crab.png";
+const ASSET_BRAND_CRAB_PNG_56: &str = "brand/crab-56.png";
+const ASSET_BRAND_CRAB_PNG_96: &str = "brand/crab-96.png";
+const ASSET_BRAND_CRAB_PNG_120: &str = "brand/crab-120.png";
 
 const ASSET_ICON_NAV_FRIENDS: &str = "ui/icons/navigation/friends.svg";
 const ASSET_ICON_NAV_DISCOVER: &str = "ui/icons/navigation/discover.svg";
@@ -236,7 +238,7 @@ impl Render for CrabCordShell {
                 icon = icon.text_color(rgb(0xBCEBFF));
             }
             let content = if is_crab_art {
-                img(ASSET_BRAND_CRAB_PNG)
+                img(ASSET_BRAND_CRAB_PNG_56)
                     .w(px(icon_w))
                     .h(px(icon_h))
                     .into_any_element()
@@ -489,7 +491,7 @@ impl Render for CrabCordShell {
                                     .items_center()
                                     .justify_center()
                                     .child(
-                                        img(ASSET_BRAND_CRAB_PNG)
+                                        img(ASSET_BRAND_CRAB_PNG_56)
                                             .w(px(38.0))
                                             .h(px(38.0)),
                                     ),
@@ -571,7 +573,7 @@ impl Render for CrabCordShell {
                                     .items_center()
                                     .gap_3()
                                     .child(
-                                        img(ASSET_BRAND_CRAB_PNG)
+                                        img(ASSET_BRAND_CRAB_PNG_96)
                                             .w(px(44.0))
                                             .h(px(44.0)),
                                     )
@@ -652,7 +654,7 @@ impl Render for CrabCordShell {
                                     .items_center()
                                     .gap_2()
                                     .child(
-                                        img(ASSET_BRAND_CRAB_PNG)
+                                        img(ASSET_BRAND_CRAB_PNG_120)
                                             .w(px(60.0))
                                             .h(px(60.0)),
                                     )
