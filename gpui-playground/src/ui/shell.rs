@@ -21,6 +21,7 @@ const SUCCESS: u32 = 0x33C07A;
 const WARN: u32 = 0xF2C65C;
 
 const ASSET_BRAND_MASCOT_56_SVG: &str = "brand/crabcord-mascot-56x56.svg";
+const ASSET_BRAND_CRAB_ART_SVG: &str = "brand/crabcord-crab-art-1024.svg";
 const ASSET_BRAND_CRAB_PNG: &str = "brand/crab.png";
 
 const ASSET_ICON_NAV_FRIENDS: &str = "ui/icons/navigation/friends.svg";
@@ -42,16 +43,10 @@ const ASSET_ICON_ACTION_INVITE: &str = "ui/icons/actions/invite.svg";
 const ASSET_ICON_STATUS_ONLINE: &str = "ui/icons/status/online.svg";
 
 const ASSET_AVATAR_1: &str = "ui/avatars/avatar-crab-1.svg";
-const ASSET_AVATAR_2: &str = "ui/avatars/avatar-crab-2.svg";
-const ASSET_AVATAR_3: &str = "ui/avatars/avatar-crab-3.svg";
-
 const ASSET_BADGE_BOT: &str = "ui/badges/bot.svg";
-const ASSET_BADGE_VERIFIED: &str = "ui/badges/verified.svg";
-
-const ASSET_ILLUSTRATION_BANNER: &str = "ui/illustrations/server-banner.svg";
 
 const ALL_SVG_ASSETS: [&str; 66] = [
-    "brand/crabcord-crab-art-1024.svg",
+    ASSET_BRAND_CRAB_ART_SVG,
     "brand/crabcord-mark-120x120.svg",
     "brand/crabcord-mark-56x56.svg",
     "brand/crabcord-mascot-120x120.svg",
@@ -130,6 +125,7 @@ pub struct CrabCordShell {
     status_index: usize,
     muted: bool,
     online_count: usize,
+    show_asset_desk: bool,
 }
 
 fn mono_icon(path: &'static str, size: f32, color: u32) -> impl IntoElement {
@@ -146,6 +142,7 @@ impl CrabCordShell {
             status_index: 0,
             muted: false,
             online_count: 7,
+            show_asset_desk: false,
         }
     }
 
@@ -163,6 +160,11 @@ impl CrabCordShell {
         self.online_count = (self.online_count + 1).min(99);
         cx.notify();
     }
+
+    fn toggle_asset_desk(&mut self, cx: &mut Context<Self>) {
+        self.show_asset_desk = !self.show_asset_desk;
+        cx.notify();
+    }
 }
 
 impl Render for CrabCordShell {
@@ -178,28 +180,35 @@ impl Render for CrabCordShell {
         let svg_library_title = format!("SVG LIBRARY ({})", ALL_SVG_ASSETS.len());
         let mut svg_gallery = div().flex().flex_wrap().gap_2();
         for path in ALL_SVG_ASSETS {
-            let (tile_w, tile_h, icon_w, icon_h) = if path.contains("crab-art") {
-                (66.0, 66.0, 56.0, 56.0)
-            } else if path.contains("mock/") {
-                (74.0, 46.0, 68.0, 40.0)
-            } else if path.contains("illustrations/") || path.contains("wordmark") {
-                (62.0, 38.0, 56.0, 32.0)
-            } else {
-                (34.0, 34.0, 18.0, 18.0)
-            };
+            let is_brand = path.starts_with("brand/");
             let is_ui_icon = path.starts_with("ui/icons/") || path.starts_with("ui/badges/");
             let is_status_icon = path.starts_with("ui/icons/status/");
             let is_avatar = path.starts_with("ui/avatars/");
             let is_crab_art = path.contains("crab-art");
             let is_mock = path.starts_with("mock/");
+            let is_illustration = path.starts_with("ui/illustrations/");
             let is_wide_preview = path.contains("wordmark")
                 || path.starts_with("mock/")
                 || path.starts_with("ui/illustrations/");
             let is_brand_or_mock = path.starts_with("brand/")
                 || path.starts_with("mock/")
                 || path.starts_with("ui/illustrations/");
+
+            let (tile_w, tile_h, icon_w, icon_h) = if is_crab_art {
+                (66.0, 66.0, 56.0, 56.0)
+            } else if is_avatar {
+                (38.0, 38.0, 24.0, 24.0)
+            } else if is_mock {
+                (74.0, 46.0, 68.0, 40.0)
+            } else if path.contains("illustrations/") || path.contains("wordmark") {
+                (62.0, 38.0, 56.0, 32.0)
+            } else {
+                (34.0, 34.0, 18.0, 18.0)
+            };
             let preview_bg = if is_crab_art || is_wide_preview {
                 0xE7F1F8
+            } else if is_brand {
+                PANEL_ALT_BG
             } else if is_ui_icon {
                 PANEL_ACTIVE_BG
             } else {
@@ -219,9 +228,11 @@ impl Render for CrabCordShell {
                 // Keep original multicolor company art untouched.
             } else if is_avatar {
                 icon = icon.text_color(rgb(ACCENT_SOFT));
+            } else if is_brand {
+                icon = icon.text_color(rgb(ACCENT_SOFT));
             } else if is_mock {
                 icon = icon.text_color(rgb(ACCENT));
-            } else if is_brand_or_mock {
+            } else if is_illustration || is_brand_or_mock {
                 icon = icon.text_color(rgb(0x1D4D6E));
             } else {
                 icon = icon.text_color(rgb(0xBCEBFF));
@@ -248,6 +259,211 @@ impl Render for CrabCordShell {
                     .child(content),
             );
         }
+
+        let right_panel_width = if self.show_asset_desk { 420.0 } else { 304.0 };
+        let asset_toggle_label = if self.show_asset_desk {
+            "Back to Crew"
+        } else {
+            "Open Asset Desk"
+        };
+
+        let right_panel = if self.show_asset_desk {
+            div()
+                .w(px(right_panel_width))
+                .h_full()
+                .bg(rgb(MEMBERS_BG))
+                .overflow_hidden()
+                .text_color(rgb(TEXT_SECONDARY))
+                .px_4()
+                .py_4()
+                .flex()
+                .flex_col()
+                .gap_3()
+                .child(div().text_sm().text_color(rgb(TEXT_MUTED)).child("ASSET DESK"))
+                .child(
+                    div()
+                        .id("toggle-asset-desk")
+                        .h(px(36.0))
+                        .rounded_md()
+                        .bg(rgb(PANEL_ALT_BG))
+                        .cursor_pointer()
+                        .flex()
+                        .items_center()
+                        .justify_center()
+                        .gap_2()
+                        .text_sm()
+                        .text_color(rgb(TEXT_PRIMARY))
+                        .child(mono_icon(ASSET_ICON_NAV_DISCOVER, 14.0, ACCENT_SOFT))
+                        .child(asset_toggle_label)
+                        .on_click(cx.listener(|this, _, _, cx| {
+                            this.toggle_asset_desk(cx);
+                        })),
+                )
+                .child(
+                    div()
+                        .text_sm()
+                        .text_color(rgb(TEXT_MUTED))
+                        .child(svg_library_title),
+                )
+                .child(
+                    div()
+                        .id("asset-desk-scroll")
+                        .h_full()
+                        .pr_1()
+                        .overflow_y_scroll()
+                        .child(svg_gallery),
+                )
+        } else {
+            div()
+                .w(px(right_panel_width))
+                .h_full()
+                .bg(rgb(MEMBERS_BG))
+                .overflow_hidden()
+                .text_color(rgb(TEXT_SECONDARY))
+                .px_4()
+                .py_4()
+                .flex()
+                .flex_col()
+                .gap_3()
+                .child(
+                    div()
+                        .text_sm()
+                        .text_color(rgb(TEXT_MUTED))
+                        .child(members_title),
+                )
+                .child(
+                    div()
+                        .id("toggle-asset-desk")
+                        .h(px(36.0))
+                        .rounded_md()
+                        .bg(rgb(PANEL_ALT_BG))
+                        .cursor_pointer()
+                        .flex()
+                        .items_center()
+                        .justify_center()
+                        .gap_2()
+                        .text_sm()
+                        .text_color(rgb(TEXT_PRIMARY))
+                        .child(mono_icon(ASSET_ICON_NAV_DISCOVER, 14.0, ACCENT_SOFT))
+                        .child(asset_toggle_label)
+                        .on_click(cx.listener(|this, _, _, cx| {
+                            this.toggle_asset_desk(cx);
+                        })),
+                )
+                .child(
+                    div()
+                        .h(px(42.0))
+                        .rounded_md()
+                        .bg(rgb(PANEL_ALT_BG))
+                        .px_3()
+                        .flex()
+                        .items_center()
+                        .gap_2()
+                        .child(
+                            svg()
+                                .path(ASSET_ICON_STATUS_ONLINE)
+                                .w(px(12.0))
+                                .h(px(12.0))
+                                .text_color(rgb(SUCCESS))
+                                .with_animation(
+                                    "presence-pulse",
+                                    Animation::new(Duration::from_secs(2)).repeat(),
+                                    |icon, delta| {
+                                        let scale =
+                                            1.0 + (delta * std::f32::consts::TAU).sin().abs() * 0.22;
+                                        icon.with_transformation(Transformation::scale(size(
+                                            scale, scale,
+                                        )))
+                                    },
+                                ),
+                        )
+                        .child(
+                            svg()
+                                .path(ASSET_BRAND_MASCOT_56_SVG)
+                                .w(px(22.0))
+                                .h(px(22.0))
+                                .text_color(rgb(ACCENT_ALT)),
+                        )
+                        .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("brad")),
+                )
+                .child(
+                    div()
+                        .h(px(42.0))
+                        .rounded_md()
+                        .bg(rgb(PANEL_ALT_BG))
+                        .px_3()
+                        .flex()
+                        .items_center()
+                        .gap_2()
+                        .child(mono_icon(ASSET_ICON_STATUS_ONLINE, 12.0, SUCCESS))
+                        .child(
+                            div()
+                                .w(px(22.0))
+                                .h(px(22.0))
+                                .rounded_sm()
+                                .bg(rgb(PANEL_ACTIVE_BG))
+                                .flex()
+                                .items_center()
+                                .justify_center()
+                                .child(
+                                    svg()
+                                        .path(ASSET_BADGE_BOT)
+                                        .w(px(14.0))
+                                        .h(px(14.0))
+                                        .text_color(rgb(ACCENT_SOFT)),
+                                ),
+                        )
+                        .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("design-bot"))
+                        .child(
+                            div()
+                                .px_1()
+                                .rounded_sm()
+                                .bg(rgb(0x355672))
+                                .text_sm()
+                                .text_color(rgb(TEXT_MUTED))
+                                .child("bot"),
+                        ),
+                )
+                .child(
+                    div()
+                        .h(px(42.0))
+                        .rounded_md()
+                        .bg(rgb(PANEL_ALT_BG))
+                        .px_3()
+                        .flex()
+                        .items_center()
+                        .gap_2()
+                        .child(mono_icon(ASSET_ICON_STATUS_ONLINE, 12.0, SUCCESS))
+                        .child(
+                            svg()
+                                .path(ASSET_BRAND_MASCOT_56_SVG)
+                                .w(px(22.0))
+                                .h(px(22.0))
+                                .text_color(rgb(ACCENT)),
+                        )
+                        .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("rustacean")),
+                )
+                .child(div().h_full())
+                .child(
+                    div()
+                        .id("invite-member")
+                        .h(px(34.0))
+                        .rounded_md()
+                        .bg(rgb(ACCENT))
+                        .cursor_pointer()
+                        .flex()
+                        .items_center()
+                        .justify_center()
+                        .gap_1()
+                        .text_sm()
+                        .text_color(rgb(TEXT_PRIMARY))
+                        .child(mono_icon(ASSET_ICON_ACTION_INVITE, 14.0, TEXT_PRIMARY))
+                        .child("Invite")
+                        .on_click(cx.listener(|this, _, _, cx| {
+                            this.invite_member(cx);
+                        })),
+                )
+        };
 
         div()
             .size_full()
@@ -357,11 +573,87 @@ impl Render for CrabCordShell {
                                     .child(mono_icon(ASSET_ICON_NAV_SETTINGS, 16.0, ACCENT_ALT)),
                             )
                             .child(
-                                svg()
-                                    .path(ASSET_ILLUSTRATION_BANNER)
-                                    .w(px(268.0))
-                                    .h(px(76.0))
-                                    .text_color(rgb(ACCENT_ALT)),
+                                div()
+                                    .h(px(86.0))
+                                    .rounded_md()
+                                    .bg(rgb(PANEL_ALT_BG))
+                                    .border_1()
+                                    .border_color(rgb(0x2A6D95))
+                                    .px_3()
+                                    .flex()
+                                    .items_center()
+                                    .gap_3()
+                                    .child(
+                                        img(ASSET_BRAND_CRAB_PNG)
+                                            .w(px(44.0))
+                                            .h(px(44.0)),
+                                    )
+                                    .child(
+                                        div()
+                                            .w_full()
+                                            .flex()
+                                            .flex_col()
+                                            .gap_1()
+                                            .child(
+                                                div()
+                                                    .text_sm()
+                                                    .text_color(rgb(TEXT_PRIMARY))
+                                                    .child("CrabCord HQ"),
+                                            )
+                                            .child(
+                                                div()
+                                                    .text_sm()
+                                                    .text_color(rgb(TEXT_SECONDARY))
+                                                    .child("Design lane for UI polish and fast iteration"),
+                                            )
+                                            .child(
+                                                div()
+                                                    .flex()
+                                                    .gap_2()
+                                                    .child(
+                                                        div()
+                                                            .px_2()
+                                                            .h(px(22.0))
+                                                            .rounded_md()
+                                                            .bg(rgb(PANEL_ACTIVE_BG))
+                                                            .flex()
+                                                            .items_center()
+                                                            .gap_1()
+                                                            .child(mono_icon(
+                                                                ASSET_ICON_STATUS_ONLINE,
+                                                                10.0,
+                                                                SUCCESS,
+                                                            ))
+                                                            .child(
+                                                                div()
+                                                                    .text_sm()
+                                                                    .text_color(rgb(TEXT_PRIMARY))
+                                                                    .child("7 online"),
+                                                            ),
+                                                    )
+                                                    .child(
+                                                        div()
+                                                            .px_2()
+                                                            .h(px(22.0))
+                                                            .rounded_md()
+                                                            .bg(rgb(PANEL_ACTIVE_BG))
+                                                            .flex()
+                                                            .items_center()
+                                                            .gap_1()
+                                                            .child(mono_icon(
+                                                                ASSET_ICON_NAV_DISCOVER,
+                                                                10.0,
+                                                                ACCENT_SOFT,
+                                                            ))
+                                                            .child(
+                                                                div()
+                                                                    .text_sm()
+                                                                    .text_color(rgb(TEXT_PRIMARY))
+                                                                    .child("asset desk ready"),
+                                                            ),
+                                                    ),
+                                            ),
+                                    ),
                             )
                             .child(
                                 div()
@@ -400,7 +692,7 @@ impl Render for CrabCordShell {
                                 div()
                                     .text_sm()
                                     .text_color(rgb(TEXT_MUTED))
-                                    .child("WAVE FEEDS"),
+                                    .child("CHANNELS"),
                             )
                             .child(
                                 div()
@@ -440,7 +732,7 @@ impl Render for CrabCordShell {
                                 div()
                                     .text_sm()
                                     .text_color(rgb(TEXT_MUTED))
-                                    .child("VOICE DECK"),
+                                    .child("VOICE"),
                             )
                             .child(
                                 div()
@@ -558,44 +850,23 @@ impl Render for CrabCordShell {
                                             .gap_2()
                                             .child(mono_icon(ASSET_ICON_CHANNEL_TEXT, 16.0, ACCENT_SOFT))
                                             .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("general"))
-                                            .child(div().text_sm().text_color(rgb(TEXT_MUTED)).child("CrabCord GPUI shell")),
+                                            .child(div().text_sm().text_color(rgb(TEXT_MUTED)).child("CrabCord chat")),
                                     )
                                     .child(mono_icon(ASSET_ICON_NAV_SEARCH, 16.0, ACCENT_ALT))
                                     .child(
                                         div()
-                                            .id("cycle-status")
-                                            .w(px(132.0))
-                                            .h(px(36.0))
+                                            .px_3()
+                                            .h(px(28.0))
                                             .rounded_md()
-                                            .bg(rgb(ACCENT))
-                                            .cursor_pointer()
+                                            .bg(rgb(CHAT_BG))
                                             .flex()
                                             .items_center()
                                             .justify_center()
                                             .gap_1()
                                             .text_sm()
-                                            .text_color(rgb(TEXT_PRIMARY))
-                                            .child(
-                                                svg()
-                                                    .path(ASSET_ICON_NAV_DISCOVER)
-                                                    .w(px(14.0))
-                                                    .h(px(14.0))
-                                                    .text_color(rgb(ACCENT_SOFT))
-                                                    .with_animation(
-                                                        "refresh-spin",
-                                                        Animation::new(Duration::from_secs(2))
-                                                            .repeat(),
-                                                        |icon, delta| {
-                                                            icon.with_transformation(
-                                                                Transformation::rotate(percentage(delta)),
-                                                            )
-                                                        },
-                                                    ),
-                                            )
-                                            .child("Refresh")
-                                            .on_click(cx.listener(|this, _, _, cx| {
-                                                this.cycle_status(cx);
-                                            })),
+                                            .text_color(rgb(TEXT_MUTED))
+                                            .child(mono_icon(ASSET_ICON_CHANNEL_VOICE, 12.0, ACCENT_SOFT))
+                                            .child(STATUS_LINES[self.status_index]),
                                     ),
                             )
                             .child(
@@ -613,7 +884,7 @@ impl Render for CrabCordShell {
                                             .gap_3()
                                             .child(
                                                 svg()
-                                                    .path(ASSET_AVATAR_2)
+                                                    .path(ASSET_BRAND_MASCOT_56_SVG)
                                                     .w(px(44.0))
                                                     .h(px(44.0))
                                                     .text_color(rgb(ACCENT_SOFT)),
@@ -692,7 +963,64 @@ impl Render for CrabCordShell {
                                                     ),
                                             ),
                                     )
-                                    .child(div().h_full())
+                                    .child(
+                                        div()
+                                            .rounded_md()
+                                            .bg(rgb(PANEL_ALT_BG))
+                                            .border_1()
+                                            .border_color(rgb(0x235A7A))
+                                            .px_4()
+                                            .py_3()
+                                            .flex()
+                                            .flex_col()
+                                            .gap_1()
+                                            .child(
+                                                div()
+                                                    .text_sm()
+                                                    .text_color(rgb(TEXT_MUTED))
+                                                    .child("Build focus"),
+                                            )
+                                            .child(
+                                                div()
+                                                    .text_sm()
+                                                    .text_color(rgb(TEXT_PRIMARY))
+                                                    .child("Keep chat first, keep asset desk separate."),
+                                            )
+                                            .child(
+                                                div()
+                                                    .text_sm()
+                                                    .text_color(rgb(TEXT_SECONDARY))
+                                                    .child("No clutter in the main channel lane."),
+                                            ),
+                                    )
+                                    .child(
+                                        div()
+                                            .h_full()
+                                            .rounded_md()
+                                            .bg(rgb(0x0E2B44))
+                                            .border_1()
+                                            .border_color(rgb(0x1E4E6E))
+                                            .flex()
+                                            .items_center()
+                                            .justify_center()
+                                            .child(
+                                                div()
+                                                    .rounded_md()
+                                                    .bg(rgb(PANEL_ALT_BG))
+                                                    .px_4()
+                                                    .py_2()
+                                                    .flex()
+                                                    .items_center()
+                                                    .gap_2()
+                                                    .child(mono_icon(ASSET_ICON_ACTION_ADD, 14.0, ACCENT_SOFT))
+                                                    .child(
+                                                        div()
+                                                            .text_sm()
+                                                            .text_color(rgb(TEXT_PRIMARY))
+                                                            .child("Start a message, drop a file, or paste a link"),
+                                                    ),
+                                            ),
+                                    )
                                     .child(
                                         div()
                                             .h(px(64.0))
@@ -706,7 +1034,7 @@ impl Render for CrabCordShell {
                                                     .w_full()
                                                     .text_sm()
                                                     .text_color(rgb(TEXT_MUTED))
-                                                    .child("Broadcast to general"),
+                                                    .child("Message #general"),
                                             )
                                             .child(
                                                 div()
@@ -731,140 +1059,7 @@ impl Render for CrabCordShell {
                                     ),
                             ),
                     )
-                    .child(
-                        div()
-                            .w(px(304.0))
-                            .h_full()
-                            .bg(rgb(MEMBERS_BG))
-                            .overflow_hidden()
-                            .text_color(rgb(TEXT_SECONDARY))
-                            .px_4()
-                            .py_4()
-                            .flex()
-                            .flex_col()
-                            .gap_3()
-                            .child(
-                                div()
-                                    .text_sm()
-                                    .text_color(rgb(TEXT_MUTED))
-                                    .child(members_title),
-                            )
-                            .child(
-                                div()
-                                    .h(px(42.0))
-                                    .rounded_md()
-                                    .bg(rgb(PANEL_ALT_BG))
-                                    .px_3()
-                                    .flex()
-                                    .items_center()
-                                    .gap_2()
-                                    .child(
-                                        svg()
-                                            .path(ASSET_ICON_STATUS_ONLINE)
-                                            .w(px(12.0))
-                                            .h(px(12.0))
-                                            .text_color(rgb(SUCCESS))
-                                            .with_animation(
-                                                "presence-pulse",
-                                                Animation::new(Duration::from_secs(2)).repeat(),
-                                                |icon, delta| {
-                                                    let scale = 1.0
-                                                        + (delta * std::f32::consts::TAU).sin().abs()
-                                                            * 0.22;
-                                                    icon.with_transformation(Transformation::scale(size(
-                                                        scale, scale,
-                                                    )))
-                                                },
-                                            ),
-                                    )
-                                    .child(
-                                        svg()
-                                            .path(ASSET_AVATAR_1)
-                                            .w(px(22.0))
-                                            .h(px(22.0))
-                                            .text_color(rgb(ACCENT_ALT)),
-                                    )
-                                    .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("brad")),
-                            )
-                            .child(
-                                div()
-                                    .h(px(42.0))
-                                    .rounded_md()
-                                    .bg(rgb(PANEL_ALT_BG))
-                                    .px_3()
-                                    .flex()
-                                    .items_center()
-                                    .gap_2()
-                                    .child(mono_icon(ASSET_ICON_STATUS_ONLINE, 12.0, SUCCESS))
-                                    .child(
-                                        svg()
-                                            .path(ASSET_AVATAR_2)
-                                            .w(px(22.0))
-                                            .h(px(22.0))
-                                            .text_color(rgb(ACCENT_SOFT)),
-                                    )
-                                    .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("design-bot"))
-                                    .child(
-                                        svg()
-                                            .path(ASSET_BADGE_VERIFIED)
-                                            .w(px(14.0))
-                                            .h(px(14.0))
-                                            .text_color(rgb(ACCENT)),
-                                    ),
-                            )
-                            .child(
-                                div()
-                                    .h(px(42.0))
-                                    .rounded_md()
-                                    .bg(rgb(PANEL_ALT_BG))
-                                    .px_3()
-                                    .flex()
-                                    .items_center()
-                                    .gap_2()
-                                    .child(mono_icon(ASSET_ICON_STATUS_ONLINE, 12.0, SUCCESS))
-                                    .child(
-                                        svg()
-                                            .path(ASSET_AVATAR_3)
-                                            .w(px(22.0))
-                                            .h(px(22.0))
-                                            .text_color(rgb(ACCENT)),
-                                    )
-                                    .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("rustacean")),
-                            )
-                            .child(
-                                div()
-                                    .text_sm()
-                                    .text_color(rgb(TEXT_MUTED))
-                                    .child(svg_library_title),
-                            )
-                            .child(
-                                div()
-                                    .id("svg-library-scroll")
-                                    .h(px(530.0))
-                                    .pr_1()
-                                    .overflow_y_scroll()
-                                    .child(svg_gallery),
-                            )
-                            .child(
-                                div()
-                                    .id("invite-member")
-                                    .h(px(34.0))
-                                    .rounded_md()
-                                    .bg(rgb(ACCENT))
-                                    .cursor_pointer()
-                                    .flex()
-                                    .items_center()
-                                    .justify_center()
-                                    .gap_1()
-                                    .text_sm()
-                                    .text_color(rgb(TEXT_PRIMARY))
-                                    .child(mono_icon(ASSET_ICON_ACTION_INVITE, 14.0, TEXT_PRIMARY))
-                                    .child("Invite")
-                                    .on_click(cx.listener(|this, _, _, cx| {
-                                        this.invite_member(cx);
-                                    })),
-                            ),
-                    ),
+                    .child(right_panel),
             )
     }
 }
