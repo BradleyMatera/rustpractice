@@ -1,0 +1,17 @@
+[package]
+name = "crabcord"
+version = "0.1.0"
+edition = "2021"
+description = "Rust + GPUI desktop shell prototype inspired by modern chat clients."
+license = "MIT"
+readme = "README.md"
+
+[dependencies]
+anyhow = "1.0.102"
+core-text = "=21.0.0"
+gpui = { git = "https://github.com/zed-industries/zed" }
+gpui_platform = { git = "https://github.com/zed-industries/zed", features = ["runtime_shaders", "font-kit"] }
+# smallvec is included here for convenience, it is used by gpui when creating
+# components that can have children. uncomment this line or
+# use `cargo add smallvec` to add it to your project
+#smallvec = "1.13.2"
