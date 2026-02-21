@@ -3,6 +3,7 @@
 ## Local Setup
 
 ```bash
+./scripts/check-prereqs.sh
 cargo check
 cargo run
 ```

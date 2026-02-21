@@ -21,6 +21,12 @@ This repository is an early-stage UI prototype, not a production chat client yet
 - Git (optional, for cloning)
 - Internet access on first build (pulls crates and the `gpui` git dependency)
 
+Run the prereq checker before building:
+
+```bash
+./scripts/check-prereqs.sh
+```
+
 Install missing macOS dependencies:
 
 ```bash
@@ -37,6 +43,13 @@ xcrun --find metal
 cmake --version
 ```
 
+## GPUI Dependency Notes
+
+- This app depends on `gpui` and `gpui_platform` from the Zed repository.
+- GPUI is currently pre-1.0 and may change quickly between upstream commits.
+- This repository commits `Cargo.lock` so a normal `cargo run` uses the pinned dependency graph.
+- First build still requires network access to fetch crates and git dependencies.
+
 ## Quick Start
 
 1. Clone the repository:
@@ -45,12 +58,17 @@ git clone https://github.com/<owner>/<repo>.git
 cd gpui-playground
 ```
 
-2. Build and run:
+2. Validate machine prerequisites:
+```bash
+./scripts/check-prereqs.sh
+```
+
+3. Build and run:
 ```bash
 cargo run
 ```
 
-3. Optional release build:
+4. Optional release build:
 ```bash
 cargo run --release
 ```
@@ -75,6 +93,8 @@ gpui-playground/
     ASSETS.md
     CHECKLIST.md
     RELEASE.md
+  scripts/
+    check-prereqs.sh
   src/
     assets.rs
     main.rs
@@ -113,6 +133,7 @@ If you see `'dispatch/dispatch.h' file not found`:
 ```bash
 xcode-select --install
 sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+sudo xcodebuild -license accept
 export BINDGEN_EXTRA_CLANG_ARGS="--sysroot=$(xcrun --show-sdk-path)"
 ```
 
@@ -122,6 +143,11 @@ Then retry:
 cargo clean
 cargo run
 ```
+
+## References
+
+- GPUI docs: https://docs.rs/gpui/latest/gpui/
+- Zed macOS dev requirements: https://zed.dev/docs/development/macos
 
 ## Screenshot
 

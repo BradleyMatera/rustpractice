@@ -9,6 +9,7 @@
 - [x] Simplify code to match current scope (single-screen architecture).
 - [x] Add public README quick start and usage notes.
 - [x] Add `.gitignore`, `LICENSE`, `CONTRIBUTING.md`, and `CHANGELOG.md`.
+- [x] Add prerequisites validation script (`scripts/check-prereqs.sh`).
 
 ## Next
 
