@@ -1,109 +1,74 @@
-# Asset Naming and Sizing Guide
+# SVG Asset Guide
 
 ## Goal
 
-Keep asset intent obvious at a glance and prevent accidental misuse (for example, using a tiny icon where a large banner is expected).
+Maintain a single, consistent asset format (`.svg`) across brand, UI, and mock assets so scaling and theming stay predictable.
 
-## Naming Convention
+## Format Policy
 
-`<name>-<width>x<height>.<ext>`
-
-Examples:
-
-- `crabcord-mark-56x56.svg`
-- `crabcord-mark-120x120.svg`
-- `crabcord-mascot-56x56.svg`
-- `crabcord-mascot-120x120.svg`
-- `crabcord-mascot-256x256.svg`
-- `crabcord-wordmark-360x72.svg`
-- `crabcord-shell-1280x800.svg`
-- `crabcord-shell-1280x800.png`
+- Allowed format in `assets/`: `.svg` only.
+- No raster (`.png`, `.jpg`, `.webp`) and no icon container (`.ico`) files are kept in this repository.
+- Icons should default to `currentColor` for flexible theming unless a fixed brand color is required.
 
 ## Folder Layout
 
 - `assets/brand/`
-  - Logos, marks, wordmarks, icons.
+  - Core brand marks, mascot vectors, wordmark.
 - `assets/mock/`
-  - Mockups and README screenshots.
+  - SVG mock screenshots for docs.
+- `assets/ui/icons/actions/`
+  - Composer and interaction icons (`send`, `attach`, `mute`, `invite`, etc.).
+- `assets/ui/icons/channels/`
+  - Channel-type icons (`text`, `voice`, `forum`, `announcements`, etc.).
+- `assets/ui/icons/navigation/`
+  - App-level navigation icons (`home`, `discover`, `search`, etc.).
+- `assets/ui/icons/status/`
+  - Presence/status indicators (`online`, `idle`, `dnd`, etc.).
+- `assets/ui/avatars/`
+  - Reusable avatar SVG variants.
+- `assets/ui/badges/`
+  - Badges (`bot`, `verified`, `owner`, `mod`, etc.).
+- `assets/ui/illustrations/`
+  - Large UI illustrations (`server-banner`, empty states, onboarding).
 
-## Current Asset Inventory
+## Current Inventory
 
-### `assets/brand/crabcord-mark-56x56.svg`
+- Total files: 65 SVG assets.
+- Brand SVGs: 6
+- Mock SVGs: 1
+- UI SVGs: 58
 
-- Intended use: left rail/app icon tile.
-- Used in app: yes (brand asset board preview).
-- App path: `brand/crabcord-mark-56x56.svg`.
+To list all assets:
 
-### `assets/brand/crabcord-mark-120x120.svg`
+```bash
+find assets -type f | sort
+```
 
-- Intended use: launcher/docs icon usage.
-- Used in app: yes (brand asset board preview).
+To enforce SVG-only assets:
 
-### `assets/brand/crabcord-mascot-56x56.png`
+```bash
+find assets -type f ! -name '*.svg'
+```
 
-- Intended use: left rail/app icon tile using the full mascot art.
-- Used in app: yes (raster asset board preview).
-- App path: `brand/crabcord-mascot-56x56.png`.
+The command above should return no results.
 
-### `assets/brand/crabcord-mascot-56x56.svg`
+## Runtime Loading Paths
 
-- Intended use: preferred scalable mascot icon in the UI.
-- Used in app: yes (left rail icon + SVG asset board preview).
-- App path: `brand/crabcord-mascot-56x56.svg`.
+Assets are loaded by `FileAssetSource` from the `assets/` base directory.
 
-### `assets/brand/crabcord-mascot-120x120.png`
+- Runtime path includes subfolder under `assets/`.
+- Do not prefix runtime paths with `assets/`.
 
-- Intended use: medium-size icon surfaces (profile/chip cards).
-- Used in app: yes (raster asset board preview).
+Examples:
 
-### `assets/brand/crabcord-mascot-120x120.svg`
+- `brand/crabcord-wordmark-360x72.svg`
+- `ui/icons/channels/channel-text.svg`
+- `ui/badges/verified.svg`
+- `mock/crabcord-shell-1280x800.svg`
 
-- Intended use: preferred scalable medium mascot icon.
-- Used in app: yes (SVG asset board preview).
+## Usage Rules
 
-### `assets/brand/crabcord-mascot-1024x1024.png`
-
-- Intended use: canonical full-resolution raster source.
-- Used in app: yes (raster asset board preview).
-
-### `assets/brand/crabcord-mascot-256x256.ico`
-
-- Intended use: desktop/app-icon packaging target.
-- Used in app runtime UI: yes (raster asset board preview).
-
-### `assets/brand/crabcord-mascot-256x256.svg`
-
-- Intended use: preferred scalable large mascot icon.
-- Used in app: yes (SVG asset board preview).
-
-### `assets/brand/crabcord-wordmark-360x72.svg`
-
-- Intended use: header wordmark.
-- Used in app: yes (header + brand asset board preview).
-- App path: `brand/crabcord-wordmark-360x72.svg`.
-
-### `assets/mock/crabcord-shell-1280x800.svg`
-
-- Intended use: mock shell reference.
-- Used in app: yes (SVG asset board preview).
-
-### `assets/mock/crabcord-shell-1280x800.png`
-
-- Intended use: current README screenshot captured from the running app window.
-- Used in app: yes (raster asset board preview) and docs.
-
-## Runtime Loading Path Rules
-
-Assets are loaded from `assets/` using `FileAssetSource`:
-
-- Full filesystem base: `<project>/assets`
-- App runtime path example:
-  - `brand/crabcord-mascot-56x56.svg`
-
-Do not include `assets/` in the runtime path string.
-
-## Sizing Rules
-
-- Use the closest-native asset size when possible.
-- Avoid stretching square marks into non-square slots.
-- Keep vector assets (`.svg`) as canonical source for scalable UI elements.
+- Use SVGs for all UI icon surfaces (guild rail, channels, members, controls).
+- Use brand SVGs for identity surfaces (logo, wordmark, mascot marks).
+- Keep illustrations in `assets/ui/illustrations/`; do not mix with icons.
+- Keep icon viewboxes consistent for each category (`24x24` for most UI icons, `16x16` for status dots).
