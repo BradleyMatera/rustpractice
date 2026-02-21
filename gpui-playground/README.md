@@ -1,36 +1,38 @@
 # CrabCord
 
-CrabCord is a Rust + GPUI desktop shell prototype inspired by modern chat clients.
+CrabCord is a Rust + GPUI desktop UI shell with a custom CrabCord theme and asset system.
 
-It is currently a single-screen app focused on:
-- CrabCord-native layout: guild rail, channels, chat, and members
-- simple local state for presence/status and member count interactions
-- large SVG-only asset library for UI icons, avatars, badges, and illustrations
-- GPUI-native SVG animation on appropriate elements (refresh, presence, mic, nav)
-- original CrabCord artwork converted to transparent SVG and used in-app
-- single-screen GPUI shell with no backend yet
-- no routing, no persistence, no backend
+Current scope:
+- single-window chat-style layout
+- Crew mode and Asset Desk mode in the right panel
+- interactive local UI state (`Mic`, `Send`, `Invite`, `Open Asset Desk`)
+- SVG-first icon library with PNG fallback for complex brand art
+- no backend, no routing, no persistence yet
 
-## Status
+## Screenshots
 
-This repository is an early-stage UI prototype, not a production chat client yet.
+Crew view:
+
+![CrabCord crew view](docs/screenshots/crabcord-crew-view.png)
+
+Asset Desk view:
+
+![CrabCord asset desk view](docs/screenshots/crabcord-asset-desk-view.png)
 
 ## Requirements
 
-- macOS (this project is currently tested on macOS only)
-- Rust (stable), installed via `rustup`
-- Xcode (full app install)
-- Xcode Command Line Tools
-- Git (optional, for cloning)
-- Internet access on first build (pulls crates and the `gpui` git dependency)
+- macOS (currently tested on macOS only)
+- Rust stable (`rustup`)
+- Xcode + Xcode Command Line Tools
+- internet access on first build (downloads crates and GPUI git dependency)
 
-Install missing macOS dependencies:
+Install missing macOS tooling:
 
 ```bash
 xcode-select --install
 ```
 
-Verify your machine is ready:
+Quick verification:
 
 ```bash
 rustc --version
@@ -38,41 +40,26 @@ xcode-select -p
 xcrun --find metal
 ```
 
-## GPUI Dependency Notes
-
-- This app depends on `gpui` and `gpui_platform` from the Zed repository.
-- GPUI is currently pre-1.0 and may change quickly between upstream commits.
-- This repository commits `Cargo.lock` so a normal `cargo run` uses the pinned dependency graph.
-- First build still requires network access to fetch crates and git dependencies.
-
 ## Quick Start
 
-1. Clone the repository:
 ```bash
 git clone https://github.com/<owner>/<repo>.git
 cd gpui-playground
-```
-
-2. Build and run:
-```bash
 cargo run
 ```
 
-3. Optional release build:
+Release run:
+
 ```bash
 cargo run --release
 ```
 
-## How To Use The Current Build
+## Current Interaction Model
 
-When the app opens:
-- click `Refresh` in the top bar to cycle the live status line
-- click `Send` to simulate a chat action (cycles status)
-- click `Mic` in the profile strip to mute/unmute mic state
-- click `Invite` in the member list to increment online count
-- watch subtle animated SVG states: floating brand crab mark, spinning refresh icon, pulsing live mic and online presence
-
-`cargo run` should work immediately after checkout when all requirements above are installed and configured.
+- `Send`: cycles status line in the chat area
+- `Mic`: toggles local mic state (`Live`/`Muted`)
+- `Invite`: increments crew count in Crew mode
+- `Open Asset Desk` / `Back to Crew`: toggles right panel mode
 
 ## Project Layout
 
@@ -82,53 +69,34 @@ gpui-playground/
     brand/
     mock/
     ui/
-      avatars/
-      badges/
-      icons/
-        actions/
-        channels/
-        navigation/
-        status/
-      illustrations/
   docs/
     ARCHITECTURE.md
     ASSETS.md
     CHECKLIST.md
     RELEASE.md
+    screenshots/
   src/
     assets.rs
     main.rs
     ui/
-      mod.rs
       shell.rs
 ```
 
-## Packaging Notes
+## Notes
 
-Release and macOS app-bundle notes are documented in `docs/RELEASE.md`.
+- Core UI implementation lives in `src/ui/shell.rs`.
+- Runtime assets are loaded relative to `assets/` via `FileAssetSource`.
+- Packaging/release flow is documented in `docs/RELEASE.md`.
 
-## Publish To GitHub
+## Troubleshooting
 
-If this directory is not already a Git repository:
-
-```bash
-git init
-git add .
-git commit -m "Initial public commit"
-git branch -M main
-git remote add origin https://github.com/<owner>/<repo>.git
-git push -u origin main
-```
-
-## Troubleshooting Build Setup
-
-If you see `xcrun: error: unable to find utility "metal"`:
+If you hit `xcrun: error: unable to find utility "metal"`:
 
 ```bash
 sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
 ```
 
-If you see `'dispatch/dispatch.h' file not found`:
+If you hit `'dispatch/dispatch.h' file not found`:
 
 ```bash
 xcode-select --install
@@ -147,20 +115,8 @@ cargo run
 ## References
 
 - GPUI docs: https://docs.rs/gpui/latest/gpui/
-- Zed macOS dev requirements: https://zed.dev/docs/development/macos
-
-## Screenshot
-
-![CrabCord current UI](assets/mock/crabcord-shell-1280x800.svg)
+- Zed macOS setup notes: https://zed.dev/docs/development/macos
 
 ## License
 
-This project is licensed under the MIT License. See `LICENSE`.
-
-## Contributing
-
-See `CONTRIBUTING.md` for local checks and pull request expectations.
-
-## Changelog
-
-See `CHANGELOG.md`.
+MIT. See `LICENSE`.

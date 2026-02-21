@@ -1,74 +1,56 @@
-# SVG Asset Guide
+# CrabCord Asset Guide
 
 ## Goal
 
-Maintain a single, consistent asset format (`.svg`) across brand, UI, and mock assets so scaling and theming stay predictable.
+Keep the UI SVG-first while allowing pragmatic fallbacks where GPUI rendering or fidelity requires it.
 
 ## Format Policy
 
-- Allowed format in `assets/`: `.svg` only.
-- No raster (`.png`, `.jpg`, `.webp`) and no icon container (`.ico`) files are kept in this repository.
-- Icons should default to `currentColor` for flexible theming unless a fixed brand color is required.
+- Primary format: `.svg` for icons, badges, channel glyphs, and scalable UI art.
+- Allowed raster exception: `assets/brand/crab.png` (used as a reliable in-app fallback for complex brand art).
+- README screenshots live in `docs/screenshots/*.png` and are documentation assets, not runtime UI assets.
+- Icon SVGs should prefer `currentColor` for theme-driven coloring.
 
 ## Folder Layout
 
 - `assets/brand/`
-  - Core brand marks, mascot vectors, wordmark, original crab artwork SVG.
+  - brand marks, mascot vectors, wordmark, crab artwork files
 - `assets/mock/`
-  - SVG mock screenshots for docs.
+  - historical mock assets and captured shell references
 - `assets/ui/icons/actions/`
-  - Composer and interaction icons (`send`, `attach`, `mute`, `invite`, etc.).
+  - send, invite, mute, edit, attach, etc.
 - `assets/ui/icons/channels/`
-  - Channel-type icons (`text`, `voice`, `forum`, `announcements`, etc.).
+  - text, voice, forum, announcements, etc.
 - `assets/ui/icons/navigation/`
-  - App-level navigation icons (`home`, `discover`, `search`, etc.).
+  - friends, discover, search, settings, etc.
 - `assets/ui/icons/status/`
-  - Presence/status indicators (`online`, `idle`, `dnd`, etc.).
+  - online, idle, dnd, offline, mobile, streaming
 - `assets/ui/avatars/`
-  - Reusable avatar SVG variants.
+  - reusable avatar shapes
 - `assets/ui/badges/`
-  - Badges (`bot`, `verified`, `owner`, `mod`, etc.).
+  - bot/owner/mod/verified/etc.
 - `assets/ui/illustrations/`
-  - Large UI illustrations (`server-banner`, empty states, onboarding).
+  - larger decorative UI elements
+- `docs/screenshots/`
+  - README screenshots (crew view + asset desk view)
 
-## Current Inventory
+## Runtime Paths
 
-- Total files: 66 SVG assets.
-- Brand SVGs: 7
-- Mock SVGs: 1
-- UI SVGs: 58
+Runtime assets are loaded from `assets/` by `FileAssetSource`.
 
-To list all assets:
-
-```bash
-find assets -type f | sort
-```
-
-To enforce SVG-only assets:
-
-```bash
-find assets -type f ! -name '*.svg'
-```
-
-The command above should return no results.
-
-## Runtime Loading Paths
-
-Assets are loaded by `FileAssetSource` from the `assets/` base directory.
-
-- Runtime path includes subfolder under `assets/`.
-- Do not prefix runtime paths with `assets/`.
+- Use paths relative to `assets/`
+- Do not prefix with `assets/`
 
 Examples:
 
-- `brand/crabcord-wordmark-360x72.svg`
+- `brand/crabcord-mark-56x56.svg`
+- `brand/crab.png`
 - `ui/icons/channels/channel-text.svg`
-- `ui/badges/verified.svg`
-- `mock/crabcord-shell-1280x800.svg`
+- `ui/badges/bot.svg`
 
-## Usage Rules
+## Current Usage Rules
 
-- Use SVGs for all UI icon surfaces (guild rail, channels, members, controls).
-- Use brand SVGs for identity surfaces (logo, wordmark, mascot marks).
-- Keep illustrations in `assets/ui/illustrations/`; do not mix with icons.
-- Keep icon viewboxes consistent for each category (`24x24` for most UI icons, `16x16` for status dots).
+- Keep interaction icons in SVG.
+- Keep status/channel/nav glyphs in SVG.
+- Use PNG fallback for complex crab artwork surfaces where needed.
+- Keep screenshots out of runtime loading paths (docs only).

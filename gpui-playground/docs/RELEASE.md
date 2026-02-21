@@ -1,5 +1,19 @@
 # Release and Packaging Notes
 
+## Pre-Release Docs Sync
+
+Before tagging a release, verify docs match the actual UI shipped in `src/ui/shell.rs`:
+
+- `README.md` interaction list is current
+- `README.md` screenshots match the current build
+- `docs/ARCHITECTURE.md` state and mode descriptions are current
+- `docs/ASSETS.md` format policy and runtime asset rules are current
+
+Current README screenshot files:
+
+- `docs/screenshots/crabcord-crew-view.png`
+- `docs/screenshots/crabcord-asset-desk-view.png`
+
 ## Build Commands
 
 Debug build:
@@ -74,18 +88,20 @@ PLIST
 cargo build --release
 ```
 
-2. Commit changes and create a version tag:
+2. Ensure docs/screenshots are up to date for this release.
+
+3. Commit changes and create a version tag:
 ```bash
 git add .
 git commit -m "Release v0.1.0"
 git tag v0.1.0
 ```
 
-3. Push branch and tag:
+4. Push branch and tag:
 ```bash
 git push origin main
 git push origin v0.1.0
 ```
 
-4. Open GitHub Releases and create a release from the tag.
-5. Attach build artifacts if distributing binaries.
+5. Open GitHub Releases and create a release from the tag.
+6. Attach build artifacts if distributing binaries.
