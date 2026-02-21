@@ -1,6 +1,5 @@
 use gpui::*;
 use gpui::StatefulInteractiveElement;
-use std::time::Duration;
 
 const APP_BG: u32 = 0x08131F;
 const SHELL_BG: u32 = 0x0E2338;
@@ -186,7 +185,6 @@ impl Render for CrabCordShell {
             let is_avatar = path.starts_with("ui/avatars/");
             let is_crab_art = path.contains("crab-art");
             let is_mock = path.starts_with("mock/");
-            let is_illustration = path.starts_with("ui/illustrations/");
             let is_wide_preview = path.contains("wordmark")
                 || path.starts_with("mock/")
                 || path.starts_with("ui/illustrations/");
@@ -232,7 +230,7 @@ impl Render for CrabCordShell {
                 icon = icon.text_color(rgb(ACCENT_SOFT));
             } else if is_mock {
                 icon = icon.text_color(rgb(ACCENT));
-            } else if is_illustration || is_brand_or_mock {
+            } else if is_brand_or_mock {
                 icon = icon.text_color(rgb(0x1D4D6E));
             } else {
                 icon = icon.text_color(rgb(0xBCEBFF));
@@ -364,18 +362,7 @@ impl Render for CrabCordShell {
                                 .path(ASSET_ICON_STATUS_ONLINE)
                                 .w(px(12.0))
                                 .h(px(12.0))
-                                .text_color(rgb(SUCCESS))
-                                .with_animation(
-                                    "presence-pulse",
-                                    Animation::new(Duration::from_secs(2)).repeat(),
-                                    |icon, delta| {
-                                        let scale =
-                                            1.0 + (delta * std::f32::consts::TAU).sin().abs() * 0.22;
-                                        icon.with_transformation(Transformation::scale(size(
-                                            scale, scale,
-                                        )))
-                                    },
-                                ),
+                                .text_color(rgb(SUCCESS)),
                         )
                         .child(
                             svg()
@@ -799,26 +786,7 @@ impl Render for CrabCordShell {
                                                     .path(mic_icon)
                                                     .w(px(14.0))
                                                     .h(px(14.0))
-                                                    .text_color(rgb(TEXT_PRIMARY))
-                                                    .with_animation(
-                                                        "mic-state-pulse",
-                                                        Animation::new(Duration::from_secs(2)).repeat(),
-                                                        move |icon, delta| {
-                                                            let scale = if mic_state == "Live" {
-                                                                1.0
-                                                                    + (delta
-                                                                        * std::f32::consts::TAU)
-                                                                        .sin()
-                                                                        .abs()
-                                                                        * 0.18
-                                                            } else {
-                                                                1.0
-                                                            };
-                                                            icon.with_transformation(
-                                                                Transformation::scale(size(scale, scale)),
-                                                            )
-                                                        },
-                                                    ),
+                                                    .text_color(rgb(TEXT_PRIMARY)),
                                             )
                                             .child("Mic")
                                             .on_click(cx.listener(|this, _, _, cx| {
