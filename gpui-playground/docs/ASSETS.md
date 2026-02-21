@@ -12,6 +12,9 @@ Examples:
 
 - `crabcord-mark-56x56.svg`
 - `crabcord-mark-120x120.svg`
+- `crabcord-mascot-56x56.svg`
+- `crabcord-mascot-120x120.svg`
+- `crabcord-mascot-256x256.svg`
 - `crabcord-wordmark-360x72.svg`
 - `crabcord-shell-1280x800.svg`
 - `crabcord-shell-1280x800.png`
@@ -28,50 +31,66 @@ Examples:
 ### `assets/brand/crabcord-mark-56x56.svg`
 
 - Intended use: left rail/app icon tile.
-- Used in app: not currently (reserved as vector mark variant).
+- Used in app: yes (brand asset board preview).
 - App path: `brand/crabcord-mark-56x56.svg`.
 
 ### `assets/brand/crabcord-mark-120x120.svg`
 
 - Intended use: launcher/docs icon usage.
-- Used in app: not yet (reserved).
+- Used in app: yes (brand asset board preview).
 
 ### `assets/brand/crabcord-mascot-56x56.png`
 
 - Intended use: left rail/app icon tile using the full mascot art.
-- Used in app: yes.
+- Used in app: yes (raster asset board preview).
 - App path: `brand/crabcord-mascot-56x56.png`.
+
+### `assets/brand/crabcord-mascot-56x56.svg`
+
+- Intended use: preferred scalable mascot icon in the UI.
+- Used in app: yes (left rail icon + SVG asset board preview).
+- App path: `brand/crabcord-mascot-56x56.svg`.
 
 ### `assets/brand/crabcord-mascot-120x120.png`
 
 - Intended use: medium-size icon surfaces (profile/chip cards).
-- Used in app: not yet (reserved).
+- Used in app: yes (raster asset board preview).
+
+### `assets/brand/crabcord-mascot-120x120.svg`
+
+- Intended use: preferred scalable medium mascot icon.
+- Used in app: yes (SVG asset board preview).
 
 ### `assets/brand/crabcord-mascot-1024x1024.png`
 
 - Intended use: canonical full-resolution raster source.
-- Used in app: not directly (source asset).
+- Used in app: yes (raster asset board preview).
 
 ### `assets/brand/crabcord-mascot-256x256.ico`
 
 - Intended use: desktop/app-icon packaging target.
-- Used in app runtime UI: no (packaging asset).
+- Used in app runtime UI: yes (raster asset board preview).
+
+### `assets/brand/crabcord-mascot-256x256.svg`
+
+- Intended use: preferred scalable large mascot icon.
+- Used in app: yes (SVG asset board preview).
 
 ### `assets/brand/crabcord-wordmark-360x72.svg`
 
 - Intended use: header wordmark.
-- Used in app: yes.
+- Used in app: yes (header + brand asset board preview).
 - App path: `brand/crabcord-wordmark-360x72.svg`.
 
 ### `assets/mock/crabcord-shell-1280x800.svg`
 
-- Intended use: README screenshot placeholder in headless environments.
-- Used in app: not runtime UI, docs only.
+- Intended use: mock shell reference.
+- Used in app: yes (SVG asset board preview).
 
 ### `assets/mock/crabcord-shell-1280x800.png`
 
 - Intended use: current README screenshot captured from the running app window.
-- Used in app: not runtime UI, docs only.
+- Used in app: yes (raster asset board preview) and docs.
 
 ## Runtime Loading Path Rules
 
@@ -79,7 +98,7 @@ Assets are loaded from `assets/` using `FileAssetSource`:
 
 - Full filesystem base: `<project>/assets`
 - App runtime path example:
-  - `brand/crabcord-mascot-56x56.png`
+  - `brand/crabcord-mascot-56x56.svg`
 
 Do not include `assets/` in the runtime path string.
 

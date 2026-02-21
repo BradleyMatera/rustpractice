@@ -3,8 +3,9 @@
 CrabCord is a Rust + GPUI desktop shell prototype inspired by modern chat clients.
 
 It is currently a single-screen app focused on:
-- simple, direct UI code in one screen file
-- minimal local state (`status_index`) for button interaction
+- Discord-style layout: guild rail, channels, chat, and members
+- simple local state for presence/status and member count interactions
+- single-screen GPUI shell with no backend yet
 - no routing, no persistence, no backend
 
 ## Status
@@ -62,8 +63,10 @@ cargo run --release
 ## How To Use The Current Build
 
 When the app opens:
-- click `Cycle Status` to rotate through status messages
-- click `Stream Placeholder` to jump to the stream placeholder status text
+- click `Refresh Status` in the top bar to cycle the live status line
+- click `Send` to simulate a chat action (cycles status)
+- click `Toggle` in the profile strip to mute/unmute mic state
+- click `Invite Member` in the member list to increment online count
 
 `cargo run` should work immediately after clone only when all requirements above are installed and configured.
 
