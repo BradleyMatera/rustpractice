@@ -13,9 +13,29 @@ This repository is an early-stage UI prototype, not a production chat client yet
 
 ## Requirements
 
+- macOS (this project is currently tested on macOS only)
 - Rust (stable), installed via `rustup`
-- macOS 13+ (current tested target)
+- Xcode (full app install)
+- Xcode Command Line Tools
+- `cmake`
 - Git (optional, for cloning)
+- Internet access on first build (pulls crates and the `gpui` git dependency)
+
+Install missing macOS dependencies:
+
+```bash
+xcode-select --install
+brew install cmake
+```
+
+Verify your machine is ready:
+
+```bash
+rustc --version
+xcode-select -p
+xcrun --find metal
+cmake --version
+```
 
 ## Quick Start
 
@@ -40,6 +60,8 @@ cargo run --release
 When the app opens:
 - click `Cycle Status` to rotate through status messages and increment the click counter
 - click `Try Stream Action` to update the status line to the current stream placeholder state
+
+`cargo run` should work immediately after clone only when all requirements above are installed and configured.
 
 ## Project Layout
 
@@ -76,6 +98,29 @@ git commit -m "Initial public commit"
 git branch -M main
 git remote add origin https://github.com/<owner>/<repo>.git
 git push -u origin main
+```
+
+## Troubleshooting Build Setup
+
+If you see `xcrun: error: unable to find utility "metal"`:
+
+```bash
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+```
+
+If you see `'dispatch/dispatch.h' file not found`:
+
+```bash
+xcode-select --install
+sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+export BINDGEN_EXTRA_CLANG_ARGS="--sysroot=$(xcrun --show-sdk-path)"
+```
+
+Then retry:
+
+```bash
+cargo clean
+cargo run
 ```
 
 ## Screenshot
