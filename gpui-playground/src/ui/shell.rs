@@ -1,140 +1,14 @@
 use gpui::*;
 use gpui::StatefulInteractiveElement;
 
-const APP_BG: u32 = 0x08131F;
-const SHELL_BG: u32 = 0x0E2338;
-const GUILD_RAIL_BG: u32 = 0x071525;
-const CHANNELS_BG: u32 = 0x11304B;
-const CHAT_BG: u32 = 0x0F2942;
-const MEMBERS_BG: u32 = 0x11304B;
-const PANEL_ALT_BG: u32 = 0x184361;
-const PANEL_ACTIVE_BG: u32 = 0x24597E;
-const INPUT_BG: u32 = 0x1A3F5D;
-const TEXT_PRIMARY: u32 = 0xECF8FF;
-const TEXT_SECONDARY: u32 = 0xB8D8EA;
-const TEXT_MUTED: u32 = 0x84AFC8;
-const ACCENT: u32 = 0xF2554C;
-const ACCENT_ALT: u32 = 0x2A9DD6;
-const ACCENT_SOFT: u32 = 0xF2C65C;
-const SUCCESS: u32 = 0x33C07A;
-const WARN: u32 = 0xF2C65C;
-
-const ASSET_BRAND_MASCOT_56_SVG: &str = "brand/crabcord-mascot-56x56.svg";
-const ASSET_BRAND_CRAB_ART_SVG: &str = "brand/crabcord-crab-art-1024.svg";
-const ASSET_BRAND_CRAB_PNG_56: &str = "brand/crab-56.png";
-const ASSET_BRAND_CRAB_PNG_96: &str = "brand/crab-96.png";
-const ASSET_BRAND_CRAB_PNG_120: &str = "brand/crab-120.png";
-
-const ASSET_ICON_NAV_FRIENDS: &str = "ui/icons/navigation/friends.svg";
-const ASSET_ICON_NAV_DISCOVER: &str = "ui/icons/navigation/discover.svg";
-const ASSET_ICON_NAV_SEARCH: &str = "ui/icons/navigation/search.svg";
-const ASSET_ICON_NAV_SETTINGS: &str = "ui/icons/navigation/settings.svg";
-
-const ASSET_ICON_CHANNEL_TEXT: &str = "ui/icons/channels/channel-text.svg";
-const ASSET_ICON_CHANNEL_ANNOUNCEMENTS: &str = "ui/icons/channels/channel-announcements.svg";
-const ASSET_ICON_CHANNEL_FORUM: &str = "ui/icons/channels/channel-forum.svg";
-const ASSET_ICON_CHANNEL_VOICE: &str = "ui/icons/channels/channel-voice.svg";
-
-const ASSET_ICON_ACTION_ADD: &str = "ui/icons/actions/add.svg";
-const ASSET_ICON_ACTION_SEND: &str = "ui/icons/actions/send.svg";
-const ASSET_ICON_ACTION_MUTE: &str = "ui/icons/actions/mute.svg";
-const ASSET_ICON_ACTION_UNMUTE: &str = "ui/icons/actions/unmute.svg";
-const ASSET_ICON_ACTION_INVITE: &str = "ui/icons/actions/invite.svg";
-
-const ASSET_ICON_STATUS_ONLINE: &str = "ui/icons/status/online.svg";
-
-const ASSET_AVATAR_1: &str = "ui/avatars/avatar-crab-1.svg";
-const ASSET_BADGE_BOT: &str = "ui/badges/bot.svg";
-
-const ALL_SVG_ASSETS: [&str; 66] = [
-    ASSET_BRAND_CRAB_ART_SVG,
-    "brand/crabcord-mark-120x120.svg",
-    "brand/crabcord-mark-56x56.svg",
-    "brand/crabcord-mascot-120x120.svg",
-    "brand/crabcord-mascot-256x256.svg",
-    "brand/crabcord-mascot-56x56.svg",
-    "brand/crabcord-wordmark-360x72.svg",
-    "mock/crabcord-shell-1280x800.svg",
-    "ui/avatars/avatar-crab-1.svg",
-    "ui/avatars/avatar-crab-2.svg",
-    "ui/avatars/avatar-crab-3.svg",
-    "ui/avatars/avatar-crab-4.svg",
-    "ui/avatars/avatar-crab-5.svg",
-    "ui/avatars/avatar-crab-6.svg",
-    "ui/badges/booster.svg",
-    "ui/badges/bot.svg",
-    "ui/badges/mod.svg",
-    "ui/badges/nitro.svg",
-    "ui/badges/owner.svg",
-    "ui/badges/verified.svg",
-    "ui/icons/actions/add.svg",
-    "ui/icons/actions/attach.svg",
-    "ui/icons/actions/check.svg",
-    "ui/icons/actions/close.svg",
-    "ui/icons/actions/deafen.svg",
-    "ui/icons/actions/delete.svg",
-    "ui/icons/actions/edit.svg",
-    "ui/icons/actions/emoji.svg",
-    "ui/icons/actions/gif.svg",
-    "ui/icons/actions/invite.svg",
-    "ui/icons/actions/mute.svg",
-    "ui/icons/actions/pin.svg",
-    "ui/icons/actions/remove.svg",
-    "ui/icons/actions/send.svg",
-    "ui/icons/actions/stream.svg",
-    "ui/icons/actions/undeafen.svg",
-    "ui/icons/actions/unmute.svg",
-    "ui/icons/actions/video.svg",
-    "ui/icons/channels/channel-announcements.svg",
-    "ui/icons/channels/channel-events.svg",
-    "ui/icons/channels/channel-forum.svg",
-    "ui/icons/channels/channel-media.svg",
-    "ui/icons/channels/channel-rules.svg",
-    "ui/icons/channels/channel-stage.svg",
-    "ui/icons/channels/channel-text.svg",
-    "ui/icons/channels/channel-voice.svg",
-    "ui/icons/navigation/bookmark.svg",
-    "ui/icons/navigation/discover.svg",
-    "ui/icons/navigation/friends.svg",
-    "ui/icons/navigation/help.svg",
-    "ui/icons/navigation/home.svg",
-    "ui/icons/navigation/inbox.svg",
-    "ui/icons/navigation/notifications.svg",
-    "ui/icons/navigation/search.svg",
-    "ui/icons/navigation/settings.svg",
-    "ui/icons/navigation/threads.svg",
-    "ui/icons/status/dnd.svg",
-    "ui/icons/status/idle.svg",
-    "ui/icons/status/mobile.svg",
-    "ui/icons/status/offline.svg",
-    "ui/icons/status/online.svg",
-    "ui/icons/status/streaming.svg",
-    "ui/illustrations/empty-chat.svg",
-    "ui/illustrations/empty-friends.svg",
-    "ui/illustrations/onboarding.svg",
-    "ui/illustrations/server-banner.svg",
-];
-
-const STATUS_LINES: [&str; 4] = [
-    "Voice stable, 42ms",
-    "Sync OK, no dropped frames",
-    "Push notifications connected",
-    "All core services nominal",
-];
+use super::elements::{build_svg_gallery, mono_icon};
+use super::theme::*;
 
 pub struct CrabCordShell {
     status_index: usize,
     muted: bool,
     online_count: usize,
     show_asset_desk: bool,
-}
-
-fn mono_icon(path: &'static str, size: f32, color: u32) -> impl IntoElement {
-    svg()
-        .path(path)
-        .w(px(size))
-        .h(px(size))
-        .text_color(rgb(color))
 }
 
 impl CrabCordShell {
@@ -179,86 +53,6 @@ impl Render for CrabCordShell {
         };
         let members_title = format!("CREW — {}", self.online_count);
         let svg_library_title = format!("SVG LIBRARY ({})", ALL_SVG_ASSETS.len());
-        let mut svg_gallery = div().flex().flex_wrap().gap_2();
-        for path in ALL_SVG_ASSETS {
-            let is_brand = path.starts_with("brand/");
-            let is_ui_icon = path.starts_with("ui/icons/") || path.starts_with("ui/badges/");
-            let is_status_icon = path.starts_with("ui/icons/status/");
-            let is_avatar = path.starts_with("ui/avatars/");
-            let is_crab_art = path.contains("crab-art");
-            let is_mock = path.starts_with("mock/");
-            let is_wide_preview = path.contains("wordmark")
-                || path.starts_with("mock/")
-                || path.starts_with("ui/illustrations/");
-            let is_brand_or_mock = path.starts_with("brand/")
-                || path.starts_with("mock/")
-                || path.starts_with("ui/illustrations/");
-
-            let (tile_w, tile_h, icon_w, icon_h) = if is_crab_art {
-                (66.0, 66.0, 56.0, 56.0)
-            } else if is_avatar {
-                (38.0, 38.0, 24.0, 24.0)
-            } else if is_mock {
-                (74.0, 46.0, 68.0, 40.0)
-            } else if path.contains("illustrations/") || path.contains("wordmark") {
-                (62.0, 38.0, 56.0, 32.0)
-            } else {
-                (34.0, 34.0, 18.0, 18.0)
-            };
-            let preview_bg = if is_crab_art || is_wide_preview {
-                0xE7F1F8
-            } else if is_brand {
-                PANEL_ALT_BG
-            } else if is_ui_icon {
-                PANEL_ACTIVE_BG
-            } else {
-                0x0B2438
-            };
-            let preview_border = if is_crab_art || is_wide_preview {
-                0x90B5CB
-            } else {
-                0x2D709A
-            };
-            let mut icon = svg().path(path).w(px(icon_w)).h(px(icon_h));
-            if is_status_icon {
-                icon = icon.text_color(rgb(SUCCESS));
-            } else if is_ui_icon {
-                icon = icon.text_color(rgb(0xEAF6FF));
-            } else if is_crab_art {
-                // Keep original multicolor company art untouched.
-            } else if is_avatar {
-                icon = icon.text_color(rgb(ACCENT_SOFT));
-            } else if is_brand {
-                icon = icon.text_color(rgb(ACCENT_SOFT));
-            } else if is_mock {
-                icon = icon.text_color(rgb(ACCENT));
-            } else if is_brand_or_mock {
-                icon = icon.text_color(rgb(0x1D4D6E));
-            } else {
-                icon = icon.text_color(rgb(0xBCEBFF));
-            }
-            let content = if is_crab_art {
-                img(ASSET_BRAND_CRAB_PNG_56)
-                    .w(px(icon_w))
-                    .h(px(icon_h))
-                    .into_any_element()
-            } else {
-                icon.into_any_element()
-            };
-            svg_gallery = svg_gallery.child(
-                div()
-                    .w(px(tile_w))
-                    .h(px(tile_h))
-                    .rounded_sm()
-                    .bg(rgb(preview_bg))
-                    .border_1()
-                    .border_color(rgb(preview_border))
-                    .flex()
-                    .items_center()
-                    .justify_center()
-                    .child(content),
-            );
-        }
 
         let right_panel_width = if self.show_asset_desk { 420.0 } else { 304.0 };
         let asset_toggle_label = if self.show_asset_desk {
@@ -311,7 +105,7 @@ impl Render for CrabCordShell {
                         .h_full()
                         .pr_1()
                         .overflow_y_scroll()
-                        .child(svg_gallery),
+                        .child(build_svg_gallery()),
                 )
         } else {
             div()

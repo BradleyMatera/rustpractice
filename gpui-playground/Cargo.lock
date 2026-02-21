@@ -1031,7 +1031,6 @@ name = "crabcord"
 version = "0.1.0"
 dependencies = [
  "anyhow",
- "core-text",
  "gpui",
  "gpui_platform",
 ]
