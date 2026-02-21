@@ -3,10 +3,11 @@
 CrabCord is a Rust + GPUI desktop shell prototype inspired by modern chat clients.
 
 It is currently a single-screen app focused on:
-- Discord-style layout: guild rail, channels, chat, and members
+- CrabCord-native layout: guild rail, channels, chat, and members
 - simple local state for presence/status and member count interactions
 - large SVG-only asset library for UI icons, avatars, badges, and illustrations
 - GPUI-native SVG animation on appropriate elements (refresh, presence, mic, nav)
+- original CrabCord artwork converted to transparent SVG and used in-app
 - single-screen GPUI shell with no backend yet
 - no routing, no persistence, no backend
 
@@ -65,13 +66,13 @@ cargo run --release
 ## How To Use The Current Build
 
 When the app opens:
-- click `Refresh Status` in the top bar to cycle the live status line
+- click `Refresh` in the top bar to cycle the live status line
 - click `Send` to simulate a chat action (cycles status)
-- click `Toggle` in the profile strip to mute/unmute mic state
-- click `Invite Member` in the member list to increment online count
-- watch subtle animated SVG states: floating home icon, spinning refresh icon, pulsing live mic and online presence
+- click `Mic` in the profile strip to mute/unmute mic state
+- click `Invite` in the member list to increment online count
+- watch subtle animated SVG states: floating brand crab mark, spinning refresh icon, pulsing live mic and online presence
 
-`cargo run` should work immediately after clone only when all requirements above are installed and configured.
+`cargo run` should work immediately after checkout when all requirements above are installed and configured.
 
 ## Project Layout
 

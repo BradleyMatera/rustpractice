@@ -13,7 +13,7 @@ Maintain a single, consistent asset format (`.svg`) across brand, UI, and mock a
 ## Folder Layout
 
 - `assets/brand/`
-  - Core brand marks, mascot vectors, wordmark.
+  - Core brand marks, mascot vectors, wordmark, original crab artwork SVG.
 - `assets/mock/`
   - SVG mock screenshots for docs.
 - `assets/ui/icons/actions/`
@@ -33,8 +33,8 @@ Maintain a single, consistent asset format (`.svg`) across brand, UI, and mock a
 
 ## Current Inventory
 
-- Total files: 65 SVG assets.
-- Brand SVGs: 6
+- Total files: 66 SVG assets.
+- Brand SVGs: 7
 - Mock SVGs: 1
 - UI SVGs: 58
 

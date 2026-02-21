@@ -1,10 +1,11 @@
 <svg width="56" height="56" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
-  <rect x="1" y="1" width="54" height="54" rx="12" fill="#10263D" stroke="#2A9DD6" stroke-width="2"/>
-  <circle cx="28" cy="31" r="13" fill="#F2554C"/>
-  <circle cx="22" cy="26" r="2" fill="#071426"/>
-  <circle cx="34" cy="26" r="2" fill="#071426"/>
-  <path d="M22 34C24 37 32 37 34 34" stroke="#071426" stroke-width="2" stroke-linecap="round"/>
-  <path d="M17 30C12 29 11 24 14 21" stroke="#F2554C" stroke-width="4" stroke-linecap="round" fill="none"/>
-  <path d="M39 30C44 29 45 24 42 21" stroke="#F2554C" stroke-width="4" stroke-linecap="round" fill="none"/>
-  <circle cx="28" cy="31" r="6" fill="none" stroke="#F2C65C" stroke-width="2"/>
+  <rect x="1" y="1" width="54" height="54" rx="12" fill="currentColor" opacity="0.18"/>
+  <rect x="1" y="1" width="54" height="54" rx="12" stroke="currentColor" opacity="0.5" stroke-width="2"/>
+  <circle cx="28" cy="31" r="13" fill="currentColor" opacity="0.92"/>
+  <circle cx="22" cy="26" r="2" fill="currentColor" opacity="0.35"/>
+  <circle cx="34" cy="26" r="2" fill="currentColor" opacity="0.35"/>
+  <path d="M22 34C24 37 32 37 34 34" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.45"/>
+  <path d="M17 30C12 29 11 24 14 21" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.62"/>
+  <path d="M39 30C44 29 45 24 42 21" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.62"/>
+  <circle cx="28" cy="31" r="6" fill="none" stroke="currentColor" stroke-width="2" opacity="0.6"/>
 </svg>

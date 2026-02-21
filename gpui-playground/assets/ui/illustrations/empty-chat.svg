@@ -1,9 +1,9 @@
 <svg width="360" height="180" viewBox="0 0 360 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="360" height="180" rx="20" fill="#2B2D31"/>
-  <rect x="28" y="36" width="220" height="20" rx="8" fill="#3A3D43"/>
-  <rect x="28" y="68" width="300" height="20" rx="8" fill="#3A3D43"/>
-  <rect x="28" y="100" width="170" height="20" rx="8" fill="#3A3D43"/>
-  <circle cx="300" cy="125" r="26" fill="#5865F2"/>
-  <path d="M286 125H314" stroke="white" stroke-width="4" stroke-linecap="round"/>
-  <path d="M300 111V139" stroke="white" stroke-width="4" stroke-linecap="round"/>
+  <rect width="360" height="180" rx="20" fill="currentColor" opacity="0.18"/>
+  <rect x="28" y="36" width="220" height="20" rx="8" fill="currentColor" opacity="0.38"/>
+  <rect x="28" y="68" width="300" height="20" rx="8" fill="currentColor" opacity="0.38"/>
+  <rect x="28" y="100" width="170" height="20" rx="8" fill="currentColor" opacity="0.38"/>
+  <circle cx="300" cy="125" r="26" fill="currentColor" opacity="0.82"/>
+  <path d="M286 125H314" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.2"/>
+  <path d="M300 111V139" stroke="currentColor" stroke-width="4" stroke-linecap="round" opacity="0.2"/>
 </svg>

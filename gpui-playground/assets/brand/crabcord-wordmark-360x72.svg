@@ -1,15 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="360" height="72" viewBox="0 0 360 72" fill="none">
-  <rect x="1" y="1" width="358" height="70" rx="12" fill="#F3FAFF" stroke="#D5E8F5"/>
-  <rect x="13" y="13" width="46" height="46" rx="10" fill="#F2554C"/>
-  <path d="M25 28C25 25.2386 27.2386 23 30 23H41V28H30V44H41V49H30C27.2386 49 25 46.7614 25 44V28Z" fill="#F3FAFF"/>
-  <rect x="74" y="22" width="48" height="9" rx="4.5" fill="#112438"/>
-  <rect x="127" y="22" width="38" height="9" rx="4.5" fill="#112438"/>
-  <rect x="170" y="22" width="44" height="9" rx="4.5" fill="#112438"/>
-  <rect x="219" y="22" width="56" height="9" rx="4.5" fill="#112438"/>
-  <rect x="280" y="22" width="30" height="9" rx="4.5" fill="#112438"/>
-  <rect x="74" y="40" width="38" height="9" rx="4.5" fill="#3C4C60"/>
-  <rect x="117" y="40" width="60" height="9" rx="4.5" fill="#3C4C60"/>
-  <rect x="182" y="40" width="34" height="9" rx="4.5" fill="#3C4C60"/>
-  <rect x="221" y="40" width="44" height="9" rx="4.5" fill="#3C4C60"/>
-  <rect x="270" y="40" width="46" height="9" rx="4.5" fill="#3C4C60"/>
+  <rect x="1" y="1" width="358" height="70" rx="12" fill="currentColor" fill-opacity="0.14" stroke="currentColor" stroke-opacity="0.5"/>
+  <rect x="13" y="13" width="46" height="46" rx="10" fill="currentColor" opacity="0.35"/>
+  <path d="M25 28C25 25.2386 27.2386 23 30 23H41V28H30V44H41V49H30C27.2386 49 25 46.7614 25 44V28Z" fill="currentColor" opacity="0.95"/>
+  <rect x="74" y="22" width="48" height="9" rx="4.5" fill="currentColor" opacity="0.92"/>
+  <rect x="127" y="22" width="38" height="9" rx="4.5" fill="currentColor" opacity="0.92"/>
+  <rect x="170" y="22" width="44" height="9" rx="4.5" fill="currentColor" opacity="0.92"/>
+  <rect x="219" y="22" width="56" height="9" rx="4.5" fill="currentColor" opacity="0.92"/>
+  <rect x="280" y="22" width="30" height="9" rx="4.5" fill="currentColor" opacity="0.92"/>
+  <rect x="74" y="40" width="38" height="9" rx="4.5" fill="currentColor" opacity="0.52"/>
+  <rect x="117" y="40" width="60" height="9" rx="4.5" fill="currentColor" opacity="0.52"/>
+  <rect x="182" y="40" width="34" height="9" rx="4.5" fill="currentColor" opacity="0.52"/>
+  <rect x="221" y="40" width="44" height="9" rx="4.5" fill="currentColor" opacity="0.52"/>
+  <rect x="270" y="40" width="46" height="9" rx="4.5" fill="currentColor" opacity="0.52"/>
 </svg>
