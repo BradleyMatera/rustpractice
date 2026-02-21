@@ -17,21 +17,13 @@ This repository is an early-stage UI prototype, not a production chat client yet
 - Rust (stable), installed via `rustup`
 - Xcode (full app install)
 - Xcode Command Line Tools
-- `cmake`
 - Git (optional, for cloning)
 - Internet access on first build (pulls crates and the `gpui` git dependency)
-
-Run the prereq checker before building:
-
-```bash
-./scripts/check-prereqs.sh
-```
 
 Install missing macOS dependencies:
 
 ```bash
 xcode-select --install
-brew install cmake
 ```
 
 Verify your machine is ready:
@@ -40,7 +32,6 @@ Verify your machine is ready:
 rustc --version
 xcode-select -p
 xcrun --find metal
-cmake --version
 ```
 
 ## GPUI Dependency Notes
@@ -58,17 +49,12 @@ git clone https://github.com/<owner>/<repo>.git
 cd gpui-playground
 ```
 
-2. Validate machine prerequisites:
-```bash
-./scripts/check-prereqs.sh
-```
-
-3. Build and run:
+2. Build and run:
 ```bash
 cargo run
 ```
 
-4. Optional release build:
+3. Optional release build:
 ```bash
 cargo run --release
 ```
@@ -93,8 +79,6 @@ gpui-playground/
     ASSETS.md
     CHECKLIST.md
     RELEASE.md
-  scripts/
-    check-prereqs.sh
   src/
     assets.rs
     main.rs
