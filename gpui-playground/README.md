@@ -3,9 +3,9 @@
 CrabCord is a Rust + GPUI desktop shell prototype inspired by modern chat clients.
 
 It is currently a single-screen app focused on:
-- fast startup and simple local state updates
-- clean runtime asset loading
-- minimal architecture until complexity justifies expansion
+- simple, direct UI code in one screen file
+- minimal local state (`status_index`) for button interaction
+- no routing, no persistence, no backend
 
 ## Status
 
@@ -62,8 +62,8 @@ cargo run --release
 ## How To Use The Current Build
 
 When the app opens:
-- click `Cycle Status` to rotate through status messages and increment the click counter
-- click `Try Stream Action` to update the status line to the current stream placeholder state
+- click `Cycle Status` to rotate through status messages
+- click `Stream Placeholder` to jump to the stream placeholder status text
 
 `cargo run` should work immediately after clone only when all requirements above are installed and configured.
 
@@ -135,7 +135,7 @@ cargo run
 
 ## Screenshot
 
-![CrabCord shell placeholder](assets/mock/crabcord-shell-1280x800.svg)
+![CrabCord current UI](assets/mock/crabcord-shell-1280x800.png)
 
 ## License
 

@@ -14,13 +14,14 @@ Examples:
 - `crabcord-mark-120x120.svg`
 - `crabcord-wordmark-360x72.svg`
 - `crabcord-shell-1280x800.svg`
+- `crabcord-shell-1280x800.png`
 
 ## Folder Layout
 
 - `assets/brand/`
   - Logos, marks, wordmarks, icons.
 - `assets/mock/`
-  - Mockups/screenshot placeholders and concept visuals.
+  - Mockups and README screenshots.
 
 ## Current Asset Inventory
 
@@ -65,6 +66,11 @@ Examples:
 ### `assets/mock/crabcord-shell-1280x800.svg`
 
 - Intended use: README screenshot placeholder in headless environments.
+- Used in app: not runtime UI, docs only.
+
+### `assets/mock/crabcord-shell-1280x800.png`
+
+- Intended use: current README screenshot captured from the running app window.
 - Used in app: not runtime UI, docs only.
 
 ## Runtime Loading Path Rules
