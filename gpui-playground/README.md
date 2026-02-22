@@ -1,14 +1,15 @@
 # CrabCord
 
-CrabCord is a Rust + GPUI desktop UI shell with a custom CrabCord theme and asset system.
+CrabCord is a Rust + GPUI desktop shell with a custom CrabCord theme, PNG asset pipeline, and an Axiom-ready backend command boundary.
 
 Current scope:
-- single-window chat-style layout
-- Crew mode and Asset Desk mode in the right panel
-- interactive local UI state (`Mic`, `Send`, `Invite`, `Open Asset Desk`)
+- single-window multi-lane chat layout
+- guild rail, channel/DM list, timeline, crew panel, and asset desk
+- interactive controls wired to state and backend commands
+- fake workspace data (guilds/channels/DMs/messages/members) from `src/backend.rs`
 - PNG-only runtime asset library
-- split UI modules for readability (`src/ui/shell/*.rs`)
-- no backend, no routing, no persistence yet
+- split UI modules under `src/ui/shell/*.rs`
+- no persistence yet
 
 ## Screenshots
 
@@ -44,9 +45,15 @@ xcrun --find metal
 ## Quick Start
 
 ```bash
-git clone https://github.com/<owner>/<repo>.git
+git clone <repo-url>
 cd gpui-playground
 cargo run
+```
+
+Run with Axiom command conversion enabled:
+
+```bash
+cargo run --features axiom-backend
 ```
 
 Release run:
@@ -57,7 +64,9 @@ cargo run --release
 
 ## Current Interaction Model
 
-- `Send`: cycles status line in the chat area
+- Click guilds in the left rail to switch server context
+- Click channels / DMs to switch active conversation
+- `Send`: appends a new fake message in the active conversation
 - `Mic`: toggles local mic state (`Live`/`Muted`)
 - `Invite`: increments crew count in Crew mode
 - `Open Asset Desk` / `Back to Crew`: toggles right panel mode
@@ -78,6 +87,7 @@ gpui-playground/
     screenshots/
   src/
     assets.rs
+    backend.rs
     main.rs
     ui/
       elements.rs
@@ -92,8 +102,10 @@ gpui-playground/
 
 ## Notes
 
-- UI state lives in `src/ui/shell.rs`; panels/render are split under `src/ui/shell/`.
-- Runtime assets are loaded relative to `assets/` via `FileAssetSource`.
+- UI state and interaction handlers live in `src/ui/shell.rs`.
+- Fake data models and backend command types live in `src/backend.rs`.
+- Runtime assets load from `assets/` via `FileAssetSource`.
+- `main.rs` creates a backend channel worker and injects `ChannelBackend` into the UI shell.
 - Packaging/release flow is documented in `docs/RELEASE.md`.
 
 ## Troubleshooting

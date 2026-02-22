@@ -8,11 +8,23 @@ Before tagging a release, verify docs match the actual UI shipped in `src/ui/she
 - `README.md` screenshots match the current build
 - `docs/ARCHITECTURE.md` state and mode descriptions are current
 - `docs/ASSETS.md` format policy and runtime asset rules are current
+- `docs/CHECKLIST.md` done/next sections match current implementation
 
 Current README screenshot files:
 
 - `docs/screenshots/crabcord-crew-view.png`
 - `docs/screenshots/crabcord-asset-desk-view.png`
+
+Current mock shell file:
+
+- `assets/mock/crabcord-shell-1280x800.png`
+
+## Pre-Release Build Verification
+
+```bash
+cargo check
+cargo check --features axiom-backend
+```
 
 ## Build Commands
 
