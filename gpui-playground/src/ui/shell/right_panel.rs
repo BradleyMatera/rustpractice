@@ -2,7 +2,7 @@ use gpui::*;
 use gpui::StatefulInteractiveElement;
 use gpui::prelude::*;
 
-use crate::ui::elements::{build_asset_gallery, mono_icon};
+use crate::ui::elements::{build_asset_gallery, mono_icon, rounded_image};
 use crate::ui::theme::{
     ACCENT, ACCENT_SOFT, ALL_PNG_ASSETS, ASSET_ICON_ACTION_INVITE, ASSET_ICON_NAV_DISCOVER, MEMBERS_BG,
     PANEL_ACTIVE_BG, PANEL_ALT_BG, SUCCESS, TEXT_MUTED, TEXT_PRIMARY,
@@ -84,7 +84,7 @@ pub(super) fn build_right_panel(shell: &CrabCordShell, cx: &mut Context<CrabCord
                         .child(
                             div()
                                 .relative()
-                                .child(img(member.avatar_png).w(px(22.0)).h(px(22.0)))
+                                .child(rounded_image(member.avatar_png, 22.0))
                                 .child(
                                     div()
                                         .absolute()

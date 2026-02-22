@@ -3,7 +3,21 @@ use gpui::*;
 use super::theme::{ALL_PNG_ASSETS, PANEL_ACTIVE_BG};
 
 pub(crate) fn mono_icon(path: &'static str, size: f32, _color: u32) -> impl IntoElement {
-    img(path).w(px(size)).h(px(size))
+    div()
+        .w(px(size))
+        .h(px(size))
+        .rounded_sm()
+        .overflow_hidden()
+        .child(img(path).w_full().h_full())
+}
+
+pub(crate) fn rounded_image(path: &'static str, size: f32) -> impl IntoElement {
+    div()
+        .w(px(size))
+        .h(px(size))
+        .rounded_md()
+        .overflow_hidden()
+        .child(img(path).w_full().h_full())
 }
 
 pub(crate) fn build_asset_gallery() -> impl IntoElement {
@@ -55,11 +69,19 @@ pub(crate) fn build_asset_gallery() -> impl IntoElement {
                         .w_full()
                         .h_full()
                         .rounded_sm()
+                        .overflow_hidden()
                         .bg(rgb(preview_bg))
                         .flex()
                         .items_center()
                         .justify_center()
-                        .child(img(path).w(px(icon_w)).h(px(icon_h))),
+                        .child(
+                            div()
+                                .w(px(icon_w))
+                                .h(px(icon_h))
+                                .rounded_sm()
+                                .overflow_hidden()
+                                .child(img(path).w_full().h_full()),
+                        ),
                 ),
         );
     }

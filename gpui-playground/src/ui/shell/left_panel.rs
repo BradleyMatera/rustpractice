@@ -2,7 +2,7 @@ use gpui::*;
 use gpui::StatefulInteractiveElement;
 use gpui::prelude::*;
 
-use crate::ui::elements::mono_icon;
+use crate::ui::elements::{mono_icon, rounded_image};
 use crate::ui::theme::{
     ACCENT, ACCENT_ALT, ASSET_ICON_ACTION_ADD, ASSET_ICON_ACTION_MUTE, ASSET_ICON_ACTION_UNMUTE,
     ASSET_ICON_NAV_DISCOVER, ASSET_ICON_NAV_SEARCH, ASSET_ICON_NAV_SETTINGS, ASSET_ICON_STATUS_ONLINE,
@@ -53,7 +53,7 @@ fn build_guild_rail(shell: &CrabCordShell, cx: &mut Context<CrabCordShell>) -> i
                 .items_center()
                 .gap_2()
                 .px_2()
-                .child(img(guild.icon_png).w(px(36.0)).h(px(36.0)))
+                .child(rounded_image(guild.icon_png, 36.0))
                 .child(
                     div()
                         .text_sm()
@@ -168,7 +168,7 @@ fn build_workspace_panel(shell: &CrabCordShell, cx: &mut Context<CrabCordShell>)
                 .child(
                     div()
                         .relative()
-                        .child(img(dm.avatar_png).w(px(28.0)).h(px(28.0)))
+                        .child(rounded_image(dm.avatar_png, 28.0))
                         .child(
                             div()
                                 .absolute()
@@ -336,7 +336,7 @@ fn build_workspace_panel(shell: &CrabCordShell, cx: &mut Context<CrabCordShell>)
                 .flex()
                 .items_center()
                 .gap_2()
-                .child(img("ui/avatars/avatar-crab-6.png").w(px(30.0)).h(px(30.0)))
+                .child(rounded_image("ui/avatars/avatar-crab-6.png", 30.0))
                 .child(
                     div()
                         .w_full()

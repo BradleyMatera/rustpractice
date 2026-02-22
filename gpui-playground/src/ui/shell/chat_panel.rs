@@ -2,7 +2,7 @@ use gpui::*;
 use gpui::StatefulInteractiveElement;
 use gpui::prelude::*;
 
-use crate::ui::elements::mono_icon;
+use crate::ui::elements::{mono_icon, rounded_image};
 use crate::ui::theme::{
     ACCENT, ACCENT_SOFT, ASSET_ICON_ACTION_ADD, ASSET_ICON_ACTION_SEND, ASSET_ICON_CHANNEL_TEXT,
     ASSET_ICON_NAV_SEARCH, CHAT_BG, INPUT_BG, PANEL_ACTIVE_BG, PANEL_ALT_BG, TEXT_MUTED, TEXT_PRIMARY,
@@ -93,7 +93,7 @@ fn build_chat_timeline(shell: &CrabCordShell) -> impl IntoElement {
                 .py_1()
                 .flex()
                 .gap_3()
-                .child(img(message.avatar_png).w(px(38.0)).h(px(38.0)))
+                .child(rounded_image(message.avatar_png, 38.0))
                 .child(
                     div()
                         .w_full()
