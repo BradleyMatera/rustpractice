@@ -11,6 +11,7 @@
 - [x] Replace skeleton server header with real in-product summary panel.
 - [x] Add stable README screenshots for current crew and asset-desk views.
 - [x] Simplify code to match current scope (single-screen architecture).
+- [x] Split UI into focused files under `src/ui/shell/` to keep files smaller and easier to scan.
 - [x] Update public docs (`README`, architecture, assets, release notes).
 - [x] Add `.gitignore`, `LICENSE`, `CONTRIBUTING.md`, and `CHANGELOG.md`.
 

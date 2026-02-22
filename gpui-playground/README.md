@@ -7,6 +7,7 @@ Current scope:
 - Crew mode and Asset Desk mode in the right panel
 - interactive local UI state (`Mic`, `Send`, `Invite`, `Open Asset Desk`)
 - SVG-first icon library with PNG fallback for complex brand art
+- split UI modules for readability (`src/ui/shell/*.rs`)
 - no backend, no routing, no persistence yet
 
 ## Screenshots
@@ -79,12 +80,19 @@ gpui-playground/
     assets.rs
     main.rs
     ui/
+      elements.rs
+      theme.rs
       shell.rs
+      shell/
+        render.rs
+        left_panel.rs
+        chat_panel.rs
+        right_panel.rs
 ```
 
 ## Notes
 
-- Core UI implementation lives in `src/ui/shell.rs`.
+- UI state lives in `src/ui/shell.rs`; panels/render are split under `src/ui/shell/`.
 - Runtime assets are loaded relative to `assets/` via `FileAssetSource`.
 - Packaging/release flow is documented in `docs/RELEASE.md`.
 

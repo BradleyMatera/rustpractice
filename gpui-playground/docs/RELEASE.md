@@ -2,7 +2,7 @@
 
 ## Pre-Release Docs Sync
 
-Before tagging a release, verify docs match the actual UI shipped in `src/ui/shell.rs`:
+Before tagging a release, verify docs match the actual UI shipped in `src/ui/shell.rs` and `src/ui/shell/*.rs`:
 
 - `README.md` interaction list is current
 - `README.md` screenshots match the current build

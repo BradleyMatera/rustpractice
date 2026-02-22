@@ -8,13 +8,22 @@ flowchart TD
     A --> C[GPUI app loop]
     C --> D[open_window]
     D --> E[ui::CrabCordShell]
-    E --> F[Crew Mode]
-    E --> G[Asset Desk Mode]
+    E --> F[shell/render.rs]
+    F --> G[shell/left_panel.rs]
+    F --> H[shell/chat_panel.rs]
+    F --> I[shell/right_panel.rs]
 ```
 
 ## Current Shape
 
-- One screen, one primary UI module: `src/ui/shell.rs`.
+- One screen, split into focused UI modules:
+  - `src/ui/shell.rs` (state + actions)
+  - `src/ui/shell/render.rs` (frame assembly)
+  - `src/ui/shell/left_panel.rs`
+  - `src/ui/shell/chat_panel.rs`
+  - `src/ui/shell/right_panel.rs`
+  - `src/ui/theme.rs` (constants/assets)
+  - `src/ui/elements.rs` (shared builders)
 - Runtime assets loaded from `assets/` through `FileAssetSource`.
 - State is intentionally local to `CrabCordShell`:
   - `status_index`
@@ -47,7 +56,7 @@ Mode switch is controlled by `show_asset_desk`.
 
 ## Refactor Rule
 
-Split `src/ui/shell.rs` only when there is real pressure:
+Split/add modules only when there is real pressure:
 
 - repeated UI blocks need reuse
 - state transitions become difficult to reason about
