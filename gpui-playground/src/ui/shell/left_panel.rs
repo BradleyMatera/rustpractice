@@ -4,7 +4,7 @@ use gpui::StatefulInteractiveElement;
 use crate::ui::elements::mono_icon;
 use crate::ui::theme::{
     ACCENT, ACCENT_ALT, ACCENT_SOFT, ASSET_AVATAR_1, ASSET_BRAND_CRAB_PNG_120, ASSET_BRAND_CRAB_PNG_56,
-    ASSET_BRAND_CRAB_PNG_96, ASSET_BRAND_MASCOT_56_SVG, ASSET_ICON_ACTION_ADD, ASSET_ICON_CHANNEL_ANNOUNCEMENTS,
+    ASSET_BRAND_CRAB_PNG_96, ASSET_BRAND_MASCOT_56_PNG, ASSET_ICON_ACTION_ADD, ASSET_ICON_CHANNEL_ANNOUNCEMENTS,
     ASSET_ICON_CHANNEL_FORUM, ASSET_ICON_CHANNEL_TEXT, ASSET_ICON_CHANNEL_VOICE, ASSET_ICON_NAV_DISCOVER,
     ASSET_ICON_NAV_FRIENDS, ASSET_ICON_NAV_SETTINGS, ASSET_ICON_STATUS_ONLINE, CHANNELS_BG, GUILD_RAIL_BG,
     PANEL_ACTIVE_BG, PANEL_ALT_BG, SHELL_BG, SUCCESS, TEXT_MUTED, TEXT_PRIMARY, TEXT_SECONDARY,
@@ -111,13 +111,7 @@ fn build_channels_panel(
                 .flex()
                 .items_center()
                 .gap_2()
-                .child(
-                    svg()
-                        .path(ASSET_BRAND_MASCOT_56_SVG)
-                        .w(px(18.0))
-                        .h(px(18.0))
-                        .text_color(rgb(ACCENT_SOFT)),
-                )
+                .child(img(ASSET_BRAND_MASCOT_56_PNG).w(px(18.0)).h(px(18.0)))
                 .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("CrabCord Dev"))
                 .child(div().w_full())
                 .child(mono_icon(ASSET_ICON_NAV_SETTINGS, 16.0, ACCENT_ALT)),
@@ -287,13 +281,7 @@ fn build_channels_panel(
                 .flex()
                 .items_center()
                 .gap_2()
-                .child(
-                    svg()
-                        .path(ASSET_AVATAR_1)
-                        .w(px(38.0))
-                        .h(px(38.0))
-                        .text_color(rgb(ACCENT_ALT)),
-                )
+                .child(img(ASSET_AVATAR_1).w(px(38.0)).h(px(38.0)))
                 .child(
                     div()
                         .w_full()
@@ -316,13 +304,7 @@ fn build_channels_panel(
                         .gap_1()
                         .text_sm()
                         .text_color(rgb(TEXT_PRIMARY))
-                        .child(
-                            svg()
-                                .path(mic_icon)
-                                .w(px(14.0))
-                                .h(px(14.0))
-                                .text_color(rgb(TEXT_PRIMARY)),
-                        )
+                        .child(mono_icon(mic_icon, 14.0, TEXT_PRIMARY))
                         .child("Mic")
                         .on_click(cx.listener(|this, _, _, cx| {
                             this.toggle_mic(cx);

@@ -1,8 +1,0 @@
-<svg width="360" height="180" viewBox="0 0 360 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect width="360" height="180" rx="20" fill="currentColor" opacity="0.18"/>
-  <circle cx="120" cy="78" r="26" fill="currentColor" opacity="0.62"/>
-  <circle cx="190" cy="78" r="26" fill="currentColor" opacity="0.62"/>
-  <rect x="90" y="114" width="130" height="20" rx="10" fill="currentColor" opacity="0.45"/>
-  <path d="M260 58L300 98" stroke="currentColor" stroke-width="8" stroke-linecap="round" opacity="0.82"/>
-  <path d="M300 58L260 98" stroke="currentColor" stroke-width="8" stroke-linecap="round" opacity="0.82"/>
-</svg>

@@ -49,7 +49,7 @@ flowchart TD
   - member rows
   - invite action
 - Alternate right panel: **Asset Desk**
-  - full SVG gallery
+  - full PNG asset gallery
   - scrollable asset inspection area
 
 Mode switch is controlled by `show_asset_desk`.

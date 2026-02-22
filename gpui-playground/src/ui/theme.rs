@@ -16,100 +16,100 @@ pub(crate) const ACCENT_SOFT: u32 = 0xF2C65C;
 pub(crate) const SUCCESS: u32 = 0x33C07A;
 pub(crate) const WARN: u32 = 0xF2C65C;
 
-pub(crate) const ASSET_BRAND_MASCOT_56_SVG: &str = "brand/crabcord-mascot-56x56.svg";
-pub(crate) const ASSET_BRAND_CRAB_ART_SVG: &str = "brand/crabcord-crab-art-1024.svg";
+pub(crate) const ASSET_BRAND_MASCOT_56_PNG: &str = "brand/crabcord-mascot-56x56.png";
+pub(crate) const ASSET_BRAND_CRAB_ART_PNG: &str = "brand/crabcord-crab-art-1024.png";
 pub(crate) const ASSET_BRAND_CRAB_PNG_56: &str = "brand/crab-56.png";
 pub(crate) const ASSET_BRAND_CRAB_PNG_96: &str = "brand/crab-96.png";
 pub(crate) const ASSET_BRAND_CRAB_PNG_120: &str = "brand/crab-120.png";
 
-pub(crate) const ASSET_ICON_NAV_FRIENDS: &str = "ui/icons/navigation/friends.svg";
-pub(crate) const ASSET_ICON_NAV_DISCOVER: &str = "ui/icons/navigation/discover.svg";
-pub(crate) const ASSET_ICON_NAV_SEARCH: &str = "ui/icons/navigation/search.svg";
-pub(crate) const ASSET_ICON_NAV_SETTINGS: &str = "ui/icons/navigation/settings.svg";
+pub(crate) const ASSET_ICON_NAV_FRIENDS: &str = "ui/icons/navigation/friends.png";
+pub(crate) const ASSET_ICON_NAV_DISCOVER: &str = "ui/icons/navigation/discover.png";
+pub(crate) const ASSET_ICON_NAV_SEARCH: &str = "ui/icons/navigation/search.png";
+pub(crate) const ASSET_ICON_NAV_SETTINGS: &str = "ui/icons/navigation/settings.png";
 
-pub(crate) const ASSET_ICON_CHANNEL_TEXT: &str = "ui/icons/channels/channel-text.svg";
-pub(crate) const ASSET_ICON_CHANNEL_ANNOUNCEMENTS: &str = "ui/icons/channels/channel-announcements.svg";
-pub(crate) const ASSET_ICON_CHANNEL_FORUM: &str = "ui/icons/channels/channel-forum.svg";
-pub(crate) const ASSET_ICON_CHANNEL_VOICE: &str = "ui/icons/channels/channel-voice.svg";
+pub(crate) const ASSET_ICON_CHANNEL_TEXT: &str = "ui/icons/channels/channel-text.png";
+pub(crate) const ASSET_ICON_CHANNEL_ANNOUNCEMENTS: &str = "ui/icons/channels/channel-announcements.png";
+pub(crate) const ASSET_ICON_CHANNEL_FORUM: &str = "ui/icons/channels/channel-forum.png";
+pub(crate) const ASSET_ICON_CHANNEL_VOICE: &str = "ui/icons/channels/channel-voice.png";
 
-pub(crate) const ASSET_ICON_ACTION_ADD: &str = "ui/icons/actions/add.svg";
-pub(crate) const ASSET_ICON_ACTION_SEND: &str = "ui/icons/actions/send.svg";
-pub(crate) const ASSET_ICON_ACTION_MUTE: &str = "ui/icons/actions/mute.svg";
-pub(crate) const ASSET_ICON_ACTION_UNMUTE: &str = "ui/icons/actions/unmute.svg";
-pub(crate) const ASSET_ICON_ACTION_INVITE: &str = "ui/icons/actions/invite.svg";
+pub(crate) const ASSET_ICON_ACTION_ADD: &str = "ui/icons/actions/add.png";
+pub(crate) const ASSET_ICON_ACTION_SEND: &str = "ui/icons/actions/send.png";
+pub(crate) const ASSET_ICON_ACTION_MUTE: &str = "ui/icons/actions/mute.png";
+pub(crate) const ASSET_ICON_ACTION_UNMUTE: &str = "ui/icons/actions/unmute.png";
+pub(crate) const ASSET_ICON_ACTION_INVITE: &str = "ui/icons/actions/invite.png";
 
-pub(crate) const ASSET_ICON_STATUS_ONLINE: &str = "ui/icons/status/online.svg";
+pub(crate) const ASSET_ICON_STATUS_ONLINE: &str = "ui/icons/status/online.png";
 
-pub(crate) const ASSET_AVATAR_1: &str = "ui/avatars/avatar-crab-1.svg";
-pub(crate) const ASSET_BADGE_BOT: &str = "ui/badges/bot.svg";
+pub(crate) const ASSET_AVATAR_1: &str = "ui/avatars/avatar-crab-1.png";
+pub(crate) const ASSET_BADGE_BOT: &str = "ui/badges/bot.png";
 
-pub(crate) const ALL_SVG_ASSETS: [&str; 66] = [
-    ASSET_BRAND_CRAB_ART_SVG,
-    "brand/crabcord-mark-120x120.svg",
-    "brand/crabcord-mark-56x56.svg",
-    "brand/crabcord-mascot-120x120.svg",
-    "brand/crabcord-mascot-256x256.svg",
-    "brand/crabcord-mascot-56x56.svg",
-    "brand/crabcord-wordmark-360x72.svg",
-    "mock/crabcord-shell-1280x800.svg",
-    "ui/avatars/avatar-crab-1.svg",
-    "ui/avatars/avatar-crab-2.svg",
-    "ui/avatars/avatar-crab-3.svg",
-    "ui/avatars/avatar-crab-4.svg",
-    "ui/avatars/avatar-crab-5.svg",
-    "ui/avatars/avatar-crab-6.svg",
-    "ui/badges/booster.svg",
-    "ui/badges/bot.svg",
-    "ui/badges/mod.svg",
-    "ui/badges/nitro.svg",
-    "ui/badges/owner.svg",
-    "ui/badges/verified.svg",
-    "ui/icons/actions/add.svg",
-    "ui/icons/actions/attach.svg",
-    "ui/icons/actions/check.svg",
-    "ui/icons/actions/close.svg",
-    "ui/icons/actions/deafen.svg",
-    "ui/icons/actions/delete.svg",
-    "ui/icons/actions/edit.svg",
-    "ui/icons/actions/emoji.svg",
-    "ui/icons/actions/gif.svg",
-    "ui/icons/actions/invite.svg",
-    "ui/icons/actions/mute.svg",
-    "ui/icons/actions/pin.svg",
-    "ui/icons/actions/remove.svg",
-    "ui/icons/actions/send.svg",
-    "ui/icons/actions/stream.svg",
-    "ui/icons/actions/undeafen.svg",
-    "ui/icons/actions/unmute.svg",
-    "ui/icons/actions/video.svg",
-    "ui/icons/channels/channel-announcements.svg",
-    "ui/icons/channels/channel-events.svg",
-    "ui/icons/channels/channel-forum.svg",
-    "ui/icons/channels/channel-media.svg",
-    "ui/icons/channels/channel-rules.svg",
-    "ui/icons/channels/channel-stage.svg",
-    "ui/icons/channels/channel-text.svg",
-    "ui/icons/channels/channel-voice.svg",
-    "ui/icons/navigation/bookmark.svg",
-    "ui/icons/navigation/discover.svg",
-    "ui/icons/navigation/friends.svg",
-    "ui/icons/navigation/help.svg",
-    "ui/icons/navigation/home.svg",
-    "ui/icons/navigation/inbox.svg",
-    "ui/icons/navigation/notifications.svg",
-    "ui/icons/navigation/search.svg",
-    "ui/icons/navigation/settings.svg",
-    "ui/icons/navigation/threads.svg",
-    "ui/icons/status/dnd.svg",
-    "ui/icons/status/idle.svg",
-    "ui/icons/status/mobile.svg",
-    "ui/icons/status/offline.svg",
-    "ui/icons/status/online.svg",
-    "ui/icons/status/streaming.svg",
-    "ui/illustrations/empty-chat.svg",
-    "ui/illustrations/empty-friends.svg",
-    "ui/illustrations/onboarding.svg",
-    "ui/illustrations/server-banner.svg",
+pub(crate) const ALL_PNG_ASSETS: [&str; 66] = [
+    ASSET_BRAND_CRAB_ART_PNG,
+    "brand/crabcord-mark-120x120.png",
+    "brand/crabcord-mark-56x56.png",
+    "brand/crabcord-mascot-120x120.png",
+    "brand/crabcord-mascot-256x256.png",
+    "brand/crabcord-mascot-56x56.png",
+    "brand/crabcord-wordmark-360x72.png",
+    "mock/crabcord-shell-1280x800.png",
+    "ui/avatars/avatar-crab-1.png",
+    "ui/avatars/avatar-crab-2.png",
+    "ui/avatars/avatar-crab-3.png",
+    "ui/avatars/avatar-crab-4.png",
+    "ui/avatars/avatar-crab-5.png",
+    "ui/avatars/avatar-crab-6.png",
+    "ui/badges/booster.png",
+    "ui/badges/bot.png",
+    "ui/badges/mod.png",
+    "ui/badges/nitro.png",
+    "ui/badges/owner.png",
+    "ui/badges/verified.png",
+    "ui/icons/actions/add.png",
+    "ui/icons/actions/attach.png",
+    "ui/icons/actions/check.png",
+    "ui/icons/actions/close.png",
+    "ui/icons/actions/deafen.png",
+    "ui/icons/actions/delete.png",
+    "ui/icons/actions/edit.png",
+    "ui/icons/actions/emoji.png",
+    "ui/icons/actions/gif.png",
+    "ui/icons/actions/invite.png",
+    "ui/icons/actions/mute.png",
+    "ui/icons/actions/pin.png",
+    "ui/icons/actions/remove.png",
+    "ui/icons/actions/send.png",
+    "ui/icons/actions/stream.png",
+    "ui/icons/actions/undeafen.png",
+    "ui/icons/actions/unmute.png",
+    "ui/icons/actions/video.png",
+    "ui/icons/channels/channel-announcements.png",
+    "ui/icons/channels/channel-events.png",
+    "ui/icons/channels/channel-forum.png",
+    "ui/icons/channels/channel-media.png",
+    "ui/icons/channels/channel-rules.png",
+    "ui/icons/channels/channel-stage.png",
+    "ui/icons/channels/channel-text.png",
+    "ui/icons/channels/channel-voice.png",
+    "ui/icons/navigation/bookmark.png",
+    "ui/icons/navigation/discover.png",
+    "ui/icons/navigation/friends.png",
+    "ui/icons/navigation/help.png",
+    "ui/icons/navigation/home.png",
+    "ui/icons/navigation/inbox.png",
+    "ui/icons/navigation/notifications.png",
+    "ui/icons/navigation/search.png",
+    "ui/icons/navigation/settings.png",
+    "ui/icons/navigation/threads.png",
+    "ui/icons/status/dnd.png",
+    "ui/icons/status/idle.png",
+    "ui/icons/status/mobile.png",
+    "ui/icons/status/offline.png",
+    "ui/icons/status/online.png",
+    "ui/icons/status/streaming.png",
+    "ui/illustrations/empty-chat.png",
+    "ui/illustrations/empty-friends.png",
+    "ui/illustrations/onboarding.png",
+    "ui/illustrations/server-banner.png",
 ];
 
 pub(crate) const STATUS_LINES: [&str; 4] = [

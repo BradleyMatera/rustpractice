@@ -7,7 +7,7 @@
 - [x] Build a CrabCord-native theme pass (not generic clone styling).
 - [x] Add local interactive state updates (`Send`, `Mic`, `Invite`).
 - [x] Add right-panel mode switch (`Crew` <-> `Asset Desk`).
-- [x] Add full SVG asset desk gallery with runtime rendering.
+- [x] Add full PNG asset desk gallery with runtime rendering.
 - [x] Replace skeleton server header with real in-product summary panel.
 - [x] Add stable README screenshots for current crew and asset-desk views.
 - [x] Simplify code to match current scope (single-screen architecture).

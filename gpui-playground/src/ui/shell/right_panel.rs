@@ -1,11 +1,11 @@
 use gpui::*;
 use gpui::StatefulInteractiveElement;
 
-use crate::ui::elements::{build_svg_gallery, mono_icon};
+use crate::ui::elements::{build_asset_gallery, mono_icon};
 use crate::ui::theme::{
-    ACCENT, ACCENT_ALT, ACCENT_SOFT, ALL_SVG_ASSETS, ASSET_BADGE_BOT, ASSET_BRAND_MASCOT_56_SVG,
+    ACCENT, ACCENT_SOFT, ALL_PNG_ASSETS, ASSET_BADGE_BOT, ASSET_BRAND_MASCOT_56_PNG,
     ASSET_ICON_ACTION_INVITE, ASSET_ICON_NAV_DISCOVER, ASSET_ICON_STATUS_ONLINE, MEMBERS_BG,
-    PANEL_ACTIVE_BG, PANEL_ALT_BG, SUCCESS, TEXT_MUTED, TEXT_PRIMARY, TEXT_SECONDARY,
+    PANEL_ACTIVE_BG, PANEL_ALT_BG, TEXT_MUTED, TEXT_PRIMARY, TEXT_SECONDARY,
 };
 
 use super::CrabCordShell;
@@ -18,7 +18,7 @@ pub(super) fn build_right_panel(shell: &CrabCordShell, cx: &mut Context<CrabCord
         "Open Asset Desk"
     };
     let members_title = format!("CREW — {}", shell.online_count);
-    let svg_library_title = format!("SVG LIBRARY ({})", ALL_SVG_ASSETS.len());
+    let asset_library_title = format!("ASSET LIBRARY ({})", ALL_PNG_ASSETS.len());
 
     if shell.show_asset_desk {
         div()
@@ -56,7 +56,7 @@ pub(super) fn build_right_panel(shell: &CrabCordShell, cx: &mut Context<CrabCord
                 div()
                     .text_sm()
                     .text_color(rgb(TEXT_MUTED))
-                    .child(svg_library_title),
+                    .child(asset_library_title),
             )
             .child(
                 div()
@@ -64,7 +64,7 @@ pub(super) fn build_right_panel(shell: &CrabCordShell, cx: &mut Context<CrabCord
                     .h_full()
                     .pr_1()
                     .overflow_y_scroll()
-                    .child(build_svg_gallery()),
+                    .child(build_asset_gallery()),
             )
             .into_any_element()
     } else {
@@ -113,20 +113,8 @@ pub(super) fn build_right_panel(shell: &CrabCordShell, cx: &mut Context<CrabCord
                     .flex()
                     .items_center()
                     .gap_2()
-                    .child(
-                        svg()
-                            .path(ASSET_ICON_STATUS_ONLINE)
-                            .w(px(12.0))
-                            .h(px(12.0))
-                            .text_color(rgb(SUCCESS)),
-                    )
-                    .child(
-                        svg()
-                            .path(ASSET_BRAND_MASCOT_56_SVG)
-                            .w(px(22.0))
-                            .h(px(22.0))
-                            .text_color(rgb(ACCENT_ALT)),
-                    )
+                    .child(mono_icon(ASSET_ICON_STATUS_ONLINE, 12.0, 0))
+                    .child(img(ASSET_BRAND_MASCOT_56_PNG).w(px(22.0)).h(px(22.0)))
                     .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("brad")),
             )
             .child(
@@ -138,7 +126,7 @@ pub(super) fn build_right_panel(shell: &CrabCordShell, cx: &mut Context<CrabCord
                     .flex()
                     .items_center()
                     .gap_2()
-                    .child(mono_icon(ASSET_ICON_STATUS_ONLINE, 12.0, SUCCESS))
+                    .child(mono_icon(ASSET_ICON_STATUS_ONLINE, 12.0, 0))
                     .child(
                         div()
                             .w(px(22.0))
@@ -148,13 +136,7 @@ pub(super) fn build_right_panel(shell: &CrabCordShell, cx: &mut Context<CrabCord
                             .flex()
                             .items_center()
                             .justify_center()
-                            .child(
-                                svg()
-                                    .path(ASSET_BADGE_BOT)
-                                    .w(px(14.0))
-                                    .h(px(14.0))
-                                    .text_color(rgb(ACCENT_SOFT)),
-                            ),
+                            .child(img(ASSET_BADGE_BOT).w(px(14.0)).h(px(14.0))),
                     )
                     .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("design-bot"))
                     .child(
@@ -176,14 +158,8 @@ pub(super) fn build_right_panel(shell: &CrabCordShell, cx: &mut Context<CrabCord
                     .flex()
                     .items_center()
                     .gap_2()
-                    .child(mono_icon(ASSET_ICON_STATUS_ONLINE, 12.0, SUCCESS))
-                    .child(
-                        svg()
-                            .path(ASSET_BRAND_MASCOT_56_SVG)
-                            .w(px(22.0))
-                            .h(px(22.0))
-                            .text_color(rgb(ACCENT)),
-                    )
+                    .child(mono_icon(ASSET_ICON_STATUS_ONLINE, 12.0, 0))
+                    .child(img(ASSET_BRAND_MASCOT_56_PNG).w(px(22.0)).h(px(22.0)))
                     .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("rustacean")),
             )
             .child(div().h_full())

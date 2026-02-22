@@ -2,14 +2,13 @@
 
 ## Goal
 
-Keep the UI SVG-first while allowing pragmatic fallbacks where GPUI rendering or fidelity requires it.
+Keep runtime assets simple and reliable: use PNG files for all UI assets.
 
 ## Format Policy
 
-- Primary format: `.svg` for icons, badges, channel glyphs, and scalable UI art.
-- Allowed raster exceptions (brand previews): `assets/brand/crab-56.png`, `assets/brand/crab-96.png`, `assets/brand/crab-120.png` (derived from `assets/brand/crab.png`).
+- Runtime format: `.png` for icons, badges, channel glyphs, avatars, and UI art.
+- Brand variants: `assets/brand/crab-56.png`, `assets/brand/crab-96.png`, `assets/brand/crab-120.png` (derived from `assets/brand/crab.png`).
 - README screenshots live in `docs/screenshots/*.png` and are documentation assets, not runtime UI assets.
-- Icon SVGs should prefer `currentColor` for theme-driven coloring.
 
 ## Folder Layout
 
@@ -43,14 +42,14 @@ Runtime assets are loaded from `assets/` by `FileAssetSource`.
 
 Examples:
 
-- `brand/crabcord-mark-56x56.svg`
+- `brand/crabcord-mark-56x56.png`
 - `brand/crab-56.png`
-- `ui/icons/channels/channel-text.svg`
-- `ui/badges/bot.svg`
+- `ui/icons/channels/channel-text.png`
+- `ui/badges/bot.png`
 
 ## Current Usage Rules
 
-- Keep interaction icons in SVG.
-- Keep status/channel/nav glyphs in SVG.
+- Keep interaction icons in PNG.
+- Keep status/channel/nav glyphs in PNG.
 - Use small PNG brand variants for small logo/avatar surfaces.
 - Keep screenshots out of runtime loading paths (docs only).

@@ -3,7 +3,7 @@ use gpui::StatefulInteractiveElement;
 
 use crate::ui::elements::mono_icon;
 use crate::ui::theme::{
-    ACCENT, ACCENT_ALT, ACCENT_SOFT, ASSET_BADGE_BOT, ASSET_BRAND_MASCOT_56_SVG, ASSET_ICON_ACTION_ADD,
+    ACCENT, ACCENT_SOFT, ASSET_BADGE_BOT, ASSET_BRAND_MASCOT_56_PNG, ASSET_ICON_ACTION_ADD,
     ASSET_ICON_ACTION_SEND, ASSET_ICON_CHANNEL_TEXT, ASSET_ICON_CHANNEL_VOICE, ASSET_ICON_NAV_SEARCH,
     CHAT_BG, INPUT_BG, PANEL_ALT_BG, STATUS_LINES, TEXT_MUTED, TEXT_PRIMARY, TEXT_SECONDARY,
 };
@@ -40,7 +40,7 @@ fn build_chat_header(shell: &CrabCordShell) -> impl IntoElement {
                 .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("general"))
                 .child(div().text_sm().text_color(rgb(TEXT_MUTED)).child("CrabCord chat")),
         )
-        .child(mono_icon(ASSET_ICON_NAV_SEARCH, 16.0, ACCENT_ALT))
+        .child(mono_icon(ASSET_ICON_NAV_SEARCH, 16.0, 0))
         .child(
             div()
                 .px_3()
@@ -71,13 +71,7 @@ fn build_chat_body(shell: &CrabCordShell, cx: &mut Context<CrabCordShell>) -> im
             div()
                 .flex()
                 .gap_3()
-                .child(
-                    svg()
-                        .path(ASSET_BRAND_MASCOT_56_SVG)
-                        .w(px(44.0))
-                        .h(px(44.0))
-                        .text_color(rgb(ACCENT_SOFT)),
-                )
+                .child(img(ASSET_BRAND_MASCOT_56_PNG).w(px(44.0)).h(px(44.0)))
                 .child(
                     div()
                         .flex()
@@ -105,13 +99,7 @@ fn build_chat_body(shell: &CrabCordShell, cx: &mut Context<CrabCordShell>) -> im
                         .flex()
                         .items_center()
                         .justify_center()
-                        .child(
-                            svg()
-                                .path(ASSET_BADGE_BOT)
-                                .w(px(26.0))
-                                .h(px(26.0))
-                                .text_color(rgb(ACCENT_ALT)),
-                        ),
+                        .child(img(ASSET_BADGE_BOT).w(px(26.0)).h(px(26.0))),
                 )
                 .child(
                     div()

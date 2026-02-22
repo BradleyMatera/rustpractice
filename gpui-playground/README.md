@@ -6,7 +6,7 @@ Current scope:
 - single-window chat-style layout
 - Crew mode and Asset Desk mode in the right panel
 - interactive local UI state (`Mic`, `Send`, `Invite`, `Open Asset Desk`)
-- SVG-first icon library with PNG fallback for complex brand art
+- PNG-only runtime asset library
 - split UI modules for readability (`src/ui/shell/*.rs`)
 - no backend, no routing, no persistence yet
 
