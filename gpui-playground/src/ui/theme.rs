@@ -16,21 +16,13 @@ pub(crate) const ACCENT_SOFT: u32 = 0xF2C65C;
 pub(crate) const SUCCESS: u32 = 0x33C07A;
 pub(crate) const WARN: u32 = 0xF2C65C;
 
-pub(crate) const ASSET_BRAND_MASCOT_56_PNG: &str = "brand/crabcord-mascot-56x56.png";
 pub(crate) const ASSET_BRAND_CRAB_ART_PNG: &str = "brand/crabcord-crab-art-1024.png";
-pub(crate) const ASSET_BRAND_CRAB_PNG_56: &str = "brand/crab-56.png";
-pub(crate) const ASSET_BRAND_CRAB_PNG_96: &str = "brand/crab-96.png";
-pub(crate) const ASSET_BRAND_CRAB_PNG_120: &str = "brand/crab-120.png";
 
-pub(crate) const ASSET_ICON_NAV_FRIENDS: &str = "ui/icons/navigation/friends.png";
 pub(crate) const ASSET_ICON_NAV_DISCOVER: &str = "ui/icons/navigation/discover.png";
 pub(crate) const ASSET_ICON_NAV_SEARCH: &str = "ui/icons/navigation/search.png";
 pub(crate) const ASSET_ICON_NAV_SETTINGS: &str = "ui/icons/navigation/settings.png";
 
 pub(crate) const ASSET_ICON_CHANNEL_TEXT: &str = "ui/icons/channels/channel-text.png";
-pub(crate) const ASSET_ICON_CHANNEL_ANNOUNCEMENTS: &str = "ui/icons/channels/channel-announcements.png";
-pub(crate) const ASSET_ICON_CHANNEL_FORUM: &str = "ui/icons/channels/channel-forum.png";
-pub(crate) const ASSET_ICON_CHANNEL_VOICE: &str = "ui/icons/channels/channel-voice.png";
 
 pub(crate) const ASSET_ICON_ACTION_ADD: &str = "ui/icons/actions/add.png";
 pub(crate) const ASSET_ICON_ACTION_SEND: &str = "ui/icons/actions/send.png";
@@ -39,9 +31,6 @@ pub(crate) const ASSET_ICON_ACTION_UNMUTE: &str = "ui/icons/actions/unmute.png";
 pub(crate) const ASSET_ICON_ACTION_INVITE: &str = "ui/icons/actions/invite.png";
 
 pub(crate) const ASSET_ICON_STATUS_ONLINE: &str = "ui/icons/status/online.png";
-
-pub(crate) const ASSET_AVATAR_1: &str = "ui/avatars/avatar-crab-1.png";
-pub(crate) const ASSET_BADGE_BOT: &str = "ui/badges/bot.png";
 
 pub(crate) const ALL_PNG_ASSETS: [&str; 66] = [
     ASSET_BRAND_CRAB_ART_PNG,
@@ -110,11 +99,4 @@ pub(crate) const ALL_PNG_ASSETS: [&str; 66] = [
     "ui/illustrations/empty-friends.png",
     "ui/illustrations/onboarding.png",
     "ui/illustrations/server-banner.png",
-];
-
-pub(crate) const STATUS_LINES: [&str; 4] = [
-    "Voice stable, 42ms",
-    "Sync OK, no dropped frames",
-    "Push notifications connected",
-    "All core services nominal",
 ];

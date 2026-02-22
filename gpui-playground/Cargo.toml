@@ -6,10 +6,16 @@ description = "Rust + GPUI desktop shell prototype inspired by modern chat clien
 license = "MIT"
 readme = "README.md"
 
+[features]
+default = []
+axiom-backend = ["dep:axiom", "dep:serde"]
+
 [dependencies]
 anyhow = "1.0.102"
 gpui = { git = "https://github.com/zed-industries/zed" }
 gpui_platform = { git = "https://github.com/zed-industries/zed", features = ["font-kit"] }
+axiom = { version = "0.2.1", optional = true }
+serde = { version = "1.0", features = ["derive"], optional = true }
 # smallvec is included here for convenience, it is used by gpui when creating
 # components that can have children. uncomment this line or
 # use `cargo add smallvec` to add it to your project

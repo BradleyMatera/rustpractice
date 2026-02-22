@@ -1,11 +1,12 @@
 use gpui::*;
 use gpui::StatefulInteractiveElement;
+use gpui::prelude::*;
 
 use crate::ui::elements::mono_icon;
 use crate::ui::theme::{
-    ACCENT, ACCENT_SOFT, ASSET_BADGE_BOT, ASSET_BRAND_MASCOT_56_PNG, ASSET_ICON_ACTION_ADD,
-    ASSET_ICON_ACTION_SEND, ASSET_ICON_CHANNEL_TEXT, ASSET_ICON_CHANNEL_VOICE, ASSET_ICON_NAV_SEARCH,
-    CHAT_BG, INPUT_BG, PANEL_ALT_BG, STATUS_LINES, TEXT_MUTED, TEXT_PRIMARY, TEXT_SECONDARY,
+    ACCENT, ACCENT_SOFT, ASSET_ICON_ACTION_ADD, ASSET_ICON_ACTION_SEND, ASSET_ICON_CHANNEL_TEXT,
+    ASSET_ICON_NAV_SEARCH, CHAT_BG, INPUT_BG, PANEL_ACTIVE_BG, PANEL_ALT_BG, TEXT_MUTED, TEXT_PRIMARY,
+    TEXT_SECONDARY,
 };
 
 use super::CrabCordShell;
@@ -15,206 +16,211 @@ pub(super) fn build_chat_panel(shell: &CrabCordShell, cx: &mut Context<CrabCordS
         .w_full()
         .h_full()
         .bg(rgb(CHAT_BG))
+        .rounded_md()
         .flex()
         .flex_col()
         .child(build_chat_header(shell))
-        .child(build_chat_body(shell, cx))
+        .child(build_chat_timeline(shell))
+        .child(build_chat_input(shell, cx))
         .into_any_element()
 }
 
 fn build_chat_header(shell: &CrabCordShell) -> impl IntoElement {
+    let active_name = shell.active_name();
+    let active_topic = shell.active_topic();
+    let lane_label = if shell.is_dm(shell.active_conversation) {
+        format!("@{}", active_name)
+    } else {
+        format!("#{}", active_name)
+    };
     div()
-        .h(px(56.0))
-        .px_5()
+        .h(px(52.0))
+        .px_4()
         .bg(rgb(PANEL_ALT_BG))
-        .text_color(rgb(TEXT_SECONDARY))
+        .border_b_1()
+        .border_color(rgb(0x225575))
         .flex()
         .items_center()
+        .gap_2()
+        .child(mono_icon(ASSET_ICON_CHANNEL_TEXT, 15.0, ACCENT_SOFT))
+        .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child(lane_label))
+        .child(div().text_sm().text_color(rgb(TEXT_MUTED)).child(active_topic))
+        .child(div().w_full())
+        .child(mono_icon("ui/icons/actions/video.png", 14.0, TEXT_MUTED))
+        .child(mono_icon("ui/icons/actions/pin.png", 14.0, TEXT_MUTED))
+        .child(mono_icon("ui/icons/navigation/notifications.png", 14.0, TEXT_MUTED))
         .child(
             div()
-                .w_full()
+                .w(px(230.0))
+                .h(px(30.0))
+                .rounded_md()
+                .bg(rgb(CHAT_BG))
+                .px_2()
                 .flex()
                 .items_center()
                 .gap_2()
-                .child(mono_icon(ASSET_ICON_CHANNEL_TEXT, 16.0, ACCENT_SOFT))
-                .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("general"))
-                .child(div().text_sm().text_color(rgb(TEXT_MUTED)).child("CrabCord chat")),
-        )
-        .child(mono_icon(ASSET_ICON_NAV_SEARCH, 16.0, 0))
-        .child(
-            div()
-                .px_3()
-                .h(px(28.0))
-                .rounded_md()
-                .bg(rgb(CHAT_BG))
-                .flex()
-                .items_center()
-                .justify_center()
-                .gap_1()
-                .text_sm()
-                .text_color(rgb(TEXT_MUTED))
-                .child(mono_icon(ASSET_ICON_CHANNEL_VOICE, 12.0, ACCENT_SOFT))
-                .child(STATUS_LINES[shell.status_index]),
+                .child(mono_icon(ASSET_ICON_NAV_SEARCH, 14.0, TEXT_MUTED))
+                .child(
+                    div()
+                        .text_sm()
+                        .text_color(rgb(TEXT_MUTED))
+                        .child(format!("Search {}", active_name)),
+                ),
         )
 }
 
-fn build_chat_body(shell: &CrabCordShell, cx: &mut Context<CrabCordShell>) -> impl IntoElement {
-    div()
-        .w_full()
+fn build_chat_timeline(shell: &CrabCordShell) -> impl IntoElement {
+    let mut timeline = div()
         .h_full()
-        .px_5()
-        .py_5()
+        .px_4()
+        .py_3()
+        .id("timeline-scroll")
+        .overflow_y_scroll()
         .flex()
         .flex_col()
-        .gap_4()
-        .child(
+        .gap_3();
+
+    for message in shell.visible_messages() {
+        let author_line = if message.is_bot {
+            format!("{}  BOT   {}", message.author, message.time)
+        } else {
+            format!("{}   {}", message.author, message.time)
+        };
+        timeline = timeline.child(
             div()
+                .rounded_md()
+                .px_2()
+                .py_1()
                 .flex()
                 .gap_3()
-                .child(img(ASSET_BRAND_MASCOT_56_PNG).w(px(44.0)).h(px(44.0)))
+                .child(img(message.avatar_png).w(px(38.0)).h(px(38.0)))
                 .child(
                     div()
+                        .w_full()
                         .flex()
                         .flex_col()
                         .gap_1()
-                        .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("brad  Today at 10:42"))
-                        .child(
-                            div()
-                                .text_sm()
-                                .text_color(rgb(TEXT_SECONDARY))
-                                .child("This is the first clean CrabCord layout pass in GPUI."),
-                        ),
-                ),
-        )
-        .child(
-            div()
-                .flex()
-                .gap_3()
-                .child(
-                    div()
-                        .w(px(44.0))
-                        .h(px(44.0))
-                        .rounded_md()
-                        .bg(rgb(PANEL_ALT_BG))
-                        .flex()
-                        .items_center()
-                        .justify_center()
-                        .child(img(ASSET_BADGE_BOT).w(px(26.0)).h(px(26.0))),
-                )
-                .child(
-                    div()
-                        .flex()
-                        .flex_col()
-                        .gap_1()
-                        .child(div().text_sm().text_color(rgb(TEXT_PRIMARY)).child("design-bot  Today at 10:43"))
-                        .child(
-                            div()
-                                .text_sm()
-                                .text_color(rgb(TEXT_SECONDARY))
-                                .child("Keep this pass bold, fast, and unmistakably CrabCord."),
-                        )
-                        .child(
-                            div()
-                                .bg(rgb(PANEL_ALT_BG))
-                                .rounded_md()
-                                .px_3()
-                                .py_2()
-                                .child(
-                                    div()
-                                        .text_sm()
-                                        .text_color(rgb(TEXT_PRIMARY))
-                                        .child(STATUS_LINES[shell.status_index]),
-                                ),
-                        ),
-                ),
-        )
-        .child(
-            div()
-                .rounded_md()
-                .bg(rgb(PANEL_ALT_BG))
-                .border_1()
-                .border_color(rgb(0x235A7A))
-                .px_4()
-                .py_3()
-                .flex()
-                .flex_col()
-                .gap_1()
-                .child(div().text_sm().text_color(rgb(TEXT_MUTED)).child("Build focus"))
-                .child(
-                    div()
-                        .text_sm()
-                        .text_color(rgb(TEXT_PRIMARY))
-                        .child("Keep chat first, keep asset desk separate."),
-                )
-                .child(
-                    div()
-                        .text_sm()
-                        .text_color(rgb(TEXT_SECONDARY))
-                        .child("No clutter in the main channel lane."),
-                ),
-        )
-        .child(
-            div()
-                .h_full()
-                .rounded_md()
-                .bg(rgb(0x0E2B44))
-                .border_1()
-                .border_color(rgb(0x1E4E6E))
-                .flex()
-                .items_center()
-                .justify_center()
-                .child(
-                    div()
-                        .rounded_md()
-                        .bg(rgb(PANEL_ALT_BG))
-                        .px_4()
-                        .py_2()
-                        .flex()
-                        .items_center()
-                        .gap_2()
-                        .child(mono_icon(ASSET_ICON_ACTION_ADD, 14.0, ACCENT_SOFT))
                         .child(
                             div()
                                 .text_sm()
                                 .text_color(rgb(TEXT_PRIMARY))
-                                .child("Start a message, drop a file, or paste a link"),
-                        ),
+                                .child(author_line),
+                        )
+                        .child(
+                            div()
+                                .text_sm()
+                                .text_color(rgb(TEXT_SECONDARY))
+                                .child(message.body.clone()),
+                        )
+                        .when(message.body.contains("http"), |thread| {
+                            thread.child(
+                                div()
+                                    .rounded_md()
+                                    .bg(rgb(PANEL_ALT_BG))
+                                    .border_1()
+                                    .border_color(rgb(0x2A607F))
+                                    .px_3()
+                                    .py_2()
+                                    .flex()
+                                    .flex_col()
+                                    .gap_1()
+                                    .child(
+                                        div()
+                                            .text_sm()
+                                            .text_color(rgb(TEXT_PRIMARY))
+                                            .child("Link Preview"),
+                                    )
+                                    .child(
+                                        div()
+                                            .text_sm()
+                                            .text_color(rgb(TEXT_SECONDARY))
+                                            .child("Axiom docs and backend actor model notes"),
+                                    ),
+                            )
+                        }),
                 ),
-        )
+        );
+    }
+
+    timeline.child(
+        div()
+            .rounded_md()
+            .bg(rgb(PANEL_ALT_BG))
+            .border_1()
+            .border_color(rgb(0x235A7A))
+            .px_4()
+            .py_3()
+            .flex()
+            .flex_col()
+            .gap_1()
+            .child(div().text_sm().text_color(rgb(TEXT_MUTED)).child("Build focus"))
+            .child(
+                div()
+                    .text_sm()
+                    .text_color(rgb(TEXT_PRIMARY))
+                    .child("Keep interaction obvious and lanes readable."),
+            )
+            .child(
+                div()
+                    .text_sm()
+                    .text_color(rgb(TEXT_SECONDARY))
+                    .child("Fake backend data now, real actor backend next."),
+            ),
+    )
+}
+
+fn build_chat_input(shell: &CrabCordShell, cx: &mut Context<CrabCordShell>) -> impl IntoElement {
+    div()
+        .h(px(64.0))
+        .mx_4()
+        .mb_4()
+        .rounded_md()
+        .bg(rgb(INPUT_BG))
+        .px_3()
+        .flex()
+        .items_center()
+        .gap_2()
+        .child(mono_icon(ASSET_ICON_ACTION_ADD, 16.0, ACCENT_SOFT))
         .child(
             div()
-                .h(px(64.0))
-                .bg(rgb(INPUT_BG))
+                .w_full()
+                .text_sm()
+                .text_color(rgb(TEXT_MUTED))
+                .child(shell.active_placeholder()),
+        )
+        .child(mono_icon("ui/icons/actions/gif.png", 16.0, TEXT_MUTED))
+        .child(mono_icon("ui/icons/actions/emoji.png", 16.0, TEXT_MUTED))
+        .child(
+            div()
+                .id("send-message")
+                .h(px(36.0))
+                .px_4()
                 .rounded_md()
-                .px_3()
+                .bg(rgb(ACCENT))
+                .cursor_pointer()
                 .flex()
                 .items_center()
-                .child(
-                    div()
-                        .w_full()
-                        .text_sm()
-                        .text_color(rgb(TEXT_MUTED))
-                        .child("Message #general"),
-                )
-                .child(
-                    div()
-                        .id("send-message")
-                        .w(px(112.0))
-                        .h(px(36.0))
-                        .rounded_md()
-                        .bg(rgb(ACCENT))
-                        .cursor_pointer()
-                        .flex()
-                        .items_center()
-                        .justify_center()
-                        .gap_1()
-                        .text_sm()
-                        .text_color(rgb(TEXT_PRIMARY))
-                        .child(mono_icon(ASSET_ICON_ACTION_SEND, 14.0, ACCENT_SOFT))
-                        .child("Send")
-                        .on_click(cx.listener(|this, _, _, cx| {
-                            this.cycle_status(cx);
-                        })),
-                ),
+                .gap_1()
+                .text_sm()
+                .text_color(rgb(TEXT_PRIMARY))
+                .child(mono_icon(ASSET_ICON_ACTION_SEND, 14.0, TEXT_PRIMARY))
+                .child("Send")
+                .on_click(cx.listener(|this, _, _, cx| {
+                    this.send_quick_message(cx);
+                })),
         )
+        .when(shell.active_dm().is_some(), |row| {
+            row.child(
+                div()
+                    .h(px(24.0))
+                    .px_2()
+                    .rounded_md()
+                    .bg(rgb(PANEL_ACTIVE_BG))
+                    .text_sm()
+                    .text_color(rgb(TEXT_PRIMARY))
+                    .flex()
+                    .items_center()
+                    .child("DM"),
+            )
+        })
 }
