@@ -13,11 +13,12 @@ use crate::ui::theme::{
 use super::CrabCordShell;
 
 pub(super) fn build_left_panel(
-    mic_state: &'static str,
+    muted: bool,
     mic_color: u32,
     mic_icon: &'static str,
     cx: &mut Context<CrabCordShell>,
 ) -> AnyElement {
+    let mic_state = if muted { "Muted" } else { "Live" };
     div()
         .child(build_guild_rail())
         .child(build_channels_panel(mic_state, mic_color, mic_icon, cx))
@@ -300,7 +301,8 @@ fn build_channels_panel(
                         .cursor_pointer()
                         .flex()
                         .items_center()
-                        .justify_center()
+                        .justify_start()
+                        .px_2()
                         .gap_1()
                         .text_sm()
                         .text_color(rgb(TEXT_PRIMARY))

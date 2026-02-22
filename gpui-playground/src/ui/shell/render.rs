@@ -9,7 +9,6 @@ use super::CrabCordShell;
 
 impl Render for CrabCordShell {
     fn render(&mut self, _window: &mut Window, cx: &mut Context<Self>) -> impl IntoElement {
-        let mic_state = if self.muted { "Muted" } else { "Live" };
         let mic_color = if self.muted { WARN } else { SUCCESS };
         let mic_icon = if self.muted {
             ASSET_ICON_ACTION_MUTE
@@ -21,18 +20,17 @@ impl Render for CrabCordShell {
             .size_full()
             .bg(rgb(APP_BG))
             .flex()
-            .justify_center()
-            .items_center()
+            .p_4()
             .child(
                 div()
-                    .w(px(1500.0))
-                    .h(px(900.0))
+                    .w_full()
+                    .h_full()
                     .bg(rgb(SHELL_BG))
                     .rounded_md()
                     .border_1()
                     .border_color(rgb(0x224B6A))
                     .flex()
-                    .child(build_left_panel(mic_state, mic_color, mic_icon, cx))
+                    .child(build_left_panel(self.muted, mic_color, mic_icon, cx))
                     .child(build_chat_panel(self, cx))
                     .child(build_right_panel(self, cx)),
             )
